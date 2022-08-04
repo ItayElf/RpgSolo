@@ -17,9 +17,10 @@ class _RollPageState extends State<RollPage> {
   TextEditingController diceSize = TextEditingController();
   int sum = 0;
   List<int> res = [];
+  Dice d = Dice(diceCount: 0, diceSize: 0);
 
   void rollDice(int size) {
-    Dice d = Dice(diceCount: count, diceSize: size);
+    d = Dice(diceCount: count, diceSize: size);
     List<int> rolled = d.roll();
     setState(() {
       res = rolled;
@@ -31,7 +32,7 @@ class _RollPageState extends State<RollPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Roll"),
+        title: const Text("Dice Roller"),
         centerTitle: true,
       ),
       body: Padding(
@@ -59,6 +60,9 @@ class _RollPageState extends State<RollPage> {
                         count = max(count - 1, 1);
                       });
                     },
+                    onLongPress: () => setState(() {
+                      count = 1;
+                    }),
                     child: const Icon(Icons.exposure_minus_1_outlined),
                   ),
                   SizedBox(
@@ -73,6 +77,11 @@ class _RollPageState extends State<RollPage> {
                     onPressed: () {
                       setState(() {
                         count += 1;
+                      });
+                    },
+                    onLongPress: () {
+                      setState(() {
+                        count += 5;
                       });
                     },
                     child: const Icon(Icons.plus_one),
@@ -105,8 +114,8 @@ class _RollPageState extends State<RollPage> {
             SizedBox(
               width: MediaQuery.of(context).size.width,
               child: Text(
-                "Sum: $sum\nResults: ${res.map((e) => e.toString()).join(", ")}",
-                style: Theme.of(context).textTheme.headline4,
+                "Sum: $sum (${d.diceCount}D${d.diceSize})\nResults: ${res.map((e) => e.toString()).join(", ")}",
+                style: Theme.of(context).textTheme.headline5,
                 textAlign: TextAlign.left,
               ),
             )
