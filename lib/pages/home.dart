@@ -8,6 +8,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("RpgSolo"),
+        centerTitle: true,
       ),
       body: Center(
         child: Text(
