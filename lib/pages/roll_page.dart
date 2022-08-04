@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:rpgsolo/data/races.dart';
+import 'package:rpgsolo/generator/physical_generator.dart';
 import 'package:rpgsolo/utils/dice.dart';
 
 class RollPage extends StatefulWidget {
