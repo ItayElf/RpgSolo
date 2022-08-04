@@ -1,3 +1,6 @@
+import 'package:rpgsolo/data/races.dart';
+
+//-----------------------------------Hair-----------------------------------
 const dragonHair = [
   'spiked',
   'ridged',
@@ -34,6 +37,7 @@ const hairColor = [
   'dyed'
 ];
 
+//-----------------------------------Eyes-----------------------------------
 const eyeColor = [
   'brown',
   'blue',
@@ -45,6 +49,7 @@ const eyeColor = [
   'red'
 ];
 
+//-----------------------------------Skin-----------------------------------
 const scaleTexture = [
   'rough',
   'smooth',
@@ -73,6 +78,18 @@ const elfSkin = ['blueish', 'pink', 'golden', 'silver', 'green', 'copper'];
 const tieflingSkin = ['red', 'purple'];
 const gnomeSkin = ['white', 'pink', 'brown', 'gray', 'golden'];
 
+//-----------------------------------Height-----------------------------------
+const heightModifier = {
+  Race.dragonborn: 20,
+  Race.dwarf: -38,
+  Race.gnome: -58,
+  Race.goblin: -50,
+  Race.goliath: 60,
+  Race.halfling: -63,
+  Race.halfOrc: 15
+};
+
+//-----------------------------------Weight-----------------------------------
 const strongWeight = [
   'muscular',
   'regular',
@@ -99,6 +116,7 @@ const regularWeight = [
   'round'
 ];
 
+//-----------------------------------Face-----------------------------------
 const faceShape = ['sharp', 'round', 'oval', 'soft', 'edgy', 'square'];
 const goolLooking = [
   'cute',
@@ -150,6 +168,7 @@ const beardShape = [
   'moustache'
 ];
 
+//-----------------------------------Specail-----------------------------------
 const specialPhysical = [
   'is very nimble',
   'is very clumsy',

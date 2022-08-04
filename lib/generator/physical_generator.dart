@@ -68,20 +68,8 @@ class PhysicalGenerator {
 
   static int _generateHeight(Race race, Random random) {
     int height = random.nextInt(198 - 142) + 142;
-    if (race == Race.dragonborn) {
-      height += 20;
-    } else if (race == Race.dwarf) {
-      height -= 38;
-    } else if (race == Race.gnome) {
-      height -= 58;
-    } else if (race == Race.goblin) {
-      height -= 50;
-    } else if (race == Race.halfling) {
-      height -= 63;
-    } else if (race == Race.halfOrc) {
-      height += 15;
-    }
-    return height;
+    int mod = heightModifier[race] ?? 0;
+    return height + mod;
   }
 
   static String _generateBody(Race race, Random random) {
