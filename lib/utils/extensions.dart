@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:rpgsolo/data/races.dart';
 
 extension StringExtension on String {
@@ -21,5 +22,19 @@ extension RaceExtention on Race {
   Race fromString(String name) {
     return Race.values
         .firstWhere((element) => element.toString() == "Race.$name");
+  }
+}
+
+class SlideRoute extends MaterialPageRoute {
+  SlideRoute({required WidgetBuilder builder}) : super(builder: builder);
+
+  @override
+  Widget buildTransitions(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    return SlideTransition(
+      position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero)
+          .animate(animation),
+      child: child,
+    );
   }
 }

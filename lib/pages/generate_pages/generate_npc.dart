@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:rpgsolo/classes/npc.dart';
 import 'package:rpgsolo/data/races.dart';
 import 'package:rpgsolo/generator/npc_generator.dart';
+import 'package:rpgsolo/pages/views/npc_view.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
 class GenerateNpc extends StatelessWidget {
   const GenerateNpc({super.key});
 
-  void onClick(Race? race) {
+  void onClick(BuildContext context, Race? race) {
     Npc npc = NpcGenerator.generate(race);
-    print(npc);
+    Navigator.push(
+      context,
+      SlideRoute(
+        builder: (context) => NpcView(npc: npc),
+      ),
+    );
   }
 
   @override
@@ -44,7 +50,7 @@ class GenerateNpc extends StatelessWidget {
                 itemCount: options.length,
                 itemBuilder: (context, i) => ElevatedButton(
                   onPressed: () {
-                    onClick(options[i]);
+                    onClick(context, options[i]);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(16),
