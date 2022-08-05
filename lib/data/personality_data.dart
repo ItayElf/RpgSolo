@@ -1,5 +1,6 @@
 import 'package:rpgsolo/data/races.dart';
 
+//-----------------------------------Alignment-----------------------------------
 const ethicalAlignment = {
   Race.goblin: [-2, 2, 0],
   Race.goliath: [3, 0, -2],
@@ -15,6 +16,7 @@ const moralAlignment = {
   Race.tiefling: [3, -4, 3]
 };
 
+//-----------------------------------Traits-----------------------------------
 const traits = [
   'acts on impulse.',
   'has an even temper.',
@@ -87,6 +89,7 @@ const traits = [
   'is very good at keeping secrets.'
 ];
 
+//-----------------------------------Quirks-----------------------------------
 const dragonbornQuirks = [
   'never asks for help.',
   'sees other races as inferior.',

@@ -11,3 +11,14 @@ enum Race {
   human,
   tiefling,
 }
+
+extension RaceExtention on Race {
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'name': name};
+  }
+
+  Race fromString(String name) {
+    return Race.values
+        .firstWhere((element) => element.toString() == "Race.$name");
+  }
+}
