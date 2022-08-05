@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:rpgsolo/generator/npc_generator.dart';
 import 'package:rpgsolo/utils/dice.dart';
 
 class RollPage extends StatefulWidget {
@@ -31,7 +30,6 @@ class _RollPageState extends State<RollPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(NpcGenerator.generate());
     return Scaffold(
       appBar: AppBar(
         title: const Text("Dice Roller"),

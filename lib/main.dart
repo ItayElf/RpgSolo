@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rpgsolo/pages/generate_pages/generate_npc.dart';
 import 'package:rpgsolo/pages/home.dart';
 import 'package:rpgsolo/pages/roll_page.dart';
 
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
         ),
         primarySwatch: Colors.red,
       ),
-      home: const RollPage(),
+      home: const GenerateNpc(),
     );
   }
 }
