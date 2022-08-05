@@ -98,16 +98,16 @@ const occupations = [
 
 //-----------------------------------Relationship-----------------------------------
 const relationshipStatuses = [
-  'Single',
-  'In a relationship',
-  'Married',
-  'Divorced',
-  'Widowed',
-  'Recently broke up',
-  'Recently divorced',
-  'Recently widowed',
-  'Seeing someone who is married',
-  'Married and having an affair'
+  'single',
+  'currently in a relationship',
+  'currently married',
+  'divorced',
+  'widowed',
+  'recently broke up',
+  'recently divorced',
+  'recently widowed',
+  'seeing someone who is married',
+  'married and having an affair'
 ];
 
 //-----------------------------------Hooks-----------------------------------
@@ -155,7 +155,7 @@ const hooks = [
   'is obsessed with a nearby grove with extraordinary flowers.',
   'is obsessed with a nearby valley with luxurious vegetation.',
   'is obsessed with a nearby tavern with absolutely incredible ale.',
-  'is spying the players on behalf of an organization',
+  'is spying the players on behalf of an organization.',
   'is spying the players on behalf of the local guild.',
   'needs help gathering information on an organization.',
   'needs help gathering information on the local guild.',

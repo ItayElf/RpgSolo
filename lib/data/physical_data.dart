@@ -73,7 +73,7 @@ const scaleColor = [
   'white'
 ];
 const orcSkin = ['green', 'gray'];
-const humanSkin = ['white', 'pink', 'red', 'brown', 'dark'];
+const humanSkin = ['white', 'pale', 'red', 'brown', 'dark'];
 const elfSkin = ['blueish', 'pink', 'golden', 'silver', 'green', 'copper'];
 const tieflingSkin = ['red', 'purple'];
 const gnomeSkin = ['white', 'pink', 'brown', 'gray', 'golden'];

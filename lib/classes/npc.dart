@@ -1,7 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:rpgsolo/classes/personality.dart';
+import 'package:rpgsolo/classes/physical.dart';
 import 'package:rpgsolo/data/races.dart';
+import 'package:rpgsolo/utils/extensions.dart';
 
 class Npc {
   final String name;
@@ -12,6 +15,8 @@ class Npc {
   final String orientation;
   final String relationshipStatus;
   final String hook;
+  final Physical physical;
+  final Personality personality;
   Npc({
     required this.name,
     required this.age,
@@ -21,10 +26,13 @@ class Npc {
     required this.orientation,
     required this.relationshipStatus,
     required this.hook,
+    required this.physical,
+    required this.personality,
   });
 
   String get pronoun => isMale ? "he" : "she";
   String get relPronoun => isMale ? "his" : "her";
+  String get firstName => name.split(" ")[0];
 
   Npc copyWith({
     String? name,
@@ -35,6 +43,8 @@ class Npc {
     String? orientation,
     String? relationshipStatus,
     String? hook,
+    Physical? physical,
+    Personality? personality,
   }) {
     return Npc(
       name: name ?? this.name,
@@ -45,6 +55,8 @@ class Npc {
       orientation: orientation ?? this.orientation,
       relationshipStatus: relationshipStatus ?? this.relationshipStatus,
       hook: hook ?? this.hook,
+      physical: physical ?? this.physical,
+      personality: personality ?? this.personality,
     );
   }
 
@@ -58,6 +70,8 @@ class Npc {
       'orientation': orientation,
       'relationshipStatus': relationshipStatus,
       'hook': hook,
+      'physical': physical.toMap(),
+      'personality': personality.toMap(),
     };
   }
 
@@ -72,6 +86,9 @@ class Npc {
       orientation: map['orientation'] as String,
       relationshipStatus: map['relationshipStatus'] as String,
       hook: map['hook'] as String,
+      physical: Physical.fromMap(map['physical'] as Map<String, dynamic>),
+      personality:
+          Personality.fromMap(map['personality'] as Map<String, dynamic>),
     );
   }
 
@@ -82,7 +99,7 @@ class Npc {
 
   @override
   String toString() {
-    return 'Npc(name: $name, age: $age, isMale: $isMale, race: $race, occupation: $occupation, orientation: $orientation, relationshipStatus: $relationshipStatus, hook: $hook)';
+    return 'Npc(name: $name, age: $age, isMale: $isMale, race: $race, occupation: $occupation, orientation: $orientation, relationshipStatus: $relationshipStatus, hook: $hook, physical: $physical, personality: $personality)';
   }
 
   @override
@@ -96,7 +113,9 @@ class Npc {
         other.occupation == occupation &&
         other.orientation == orientation &&
         other.relationshipStatus == relationshipStatus &&
-        other.hook == hook;
+        other.hook == hook &&
+        other.physical == physical &&
+        other.personality == personality;
   }
 
   @override
@@ -108,6 +127,8 @@ class Npc {
         occupation.hashCode ^
         orientation.hashCode ^
         relationshipStatus.hashCode ^
-        hook.hashCode;
+        hook.hashCode ^
+        physical.hashCode ^
+        personality.hashCode;
   }
 }

@@ -30,12 +30,12 @@ class PhysicalGenerator {
 
   static String _generateHair(Race race, Random random) {
     if (race == Race.dragonborn) {
-      return dragonHair[random.nextInt(dragonHair.length)];
+      return "${dragonHair[random.nextInt(dragonHair.length)]} head";
     } else if (race == Race.goliath) {
       return goliathHair[random.nextInt(goliathHair.length)];
     }
     if (random.nextInt(50) < 8) {
-      return "bald";
+      return "bald head";
     }
     String length = hairLength[random.nextInt(hairLength.length)];
     String type = hairType[random.nextInt(hairType.length)];
@@ -46,7 +46,7 @@ class PhysicalGenerator {
   static String _generateSkin(Race race, Random random) {
     late List<String> pool;
     if (race == Race.dragonborn) {
-      return "${scaleTexture[random.nextInt(scaleTexture.length)]} ${scaleColor[random.nextInt(scaleColor.length)]} sacels";
+      return "${scaleTexture[random.nextInt(scaleTexture.length)]} ${scaleColor[random.nextInt(scaleColor.length)]} scales";
     }
     if (race == Race.halfElf) {
       pool = humanSkin + elfSkin;
@@ -86,7 +86,7 @@ class PhysicalGenerator {
     } else {
       pool = regularWeight;
     }
-    return "${pool[random.nextInt(pool.length)]} body";
+    return "${pool[random.nextInt(pool.length)]} build";
   }
 
   static String _generateFace(Race race, Random random, bool isMale) {
