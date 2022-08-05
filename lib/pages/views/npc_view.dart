@@ -24,7 +24,7 @@ class NpcView extends StatelessWidget {
                 height: 16,
               ),
               Center(
-                child: Text(
+                child: SelectableText(
                   npc.name.toTitleCase(),
                   textAlign: TextAlign.center,
                   style: Theme.of(context)
@@ -50,7 +50,7 @@ class NpcView extends StatelessWidget {
               const SizedBox(
                 height: 8,
               ),
-              Text(
+              SelectableText(
                 "${npc.name.toTitleCase()} is a ${npc.age} years old ${npc.isMale ? 'male' : 'female'} ${npc.race.printedName} ${npc.occupation}. "
                 "${npc.pronoun.toTitleCase()} has a ${npc.physical.hair} and ${npc.physical.eyes}. "
                 "${npc.pronoun.toTitleCase()} has a ${npc.physical.skin}. "
@@ -79,7 +79,7 @@ class NpcView extends StatelessWidget {
               const SizedBox(
                 height: 8,
               ),
-              Text(
+              SelectableText(
                 "${npc.name.toTitleCase()} ${npc.personality.trait1} ${npc.pronoun.toTitleCase()} ${npc.personality.trait2} "
                 "${npc.firstName.toTitleCase()} ${npc.personality.quirk1.replaceAll(".", "")} and ${npc.personality.quirk2} "
                 "${npc.pronoun.toTitleCase()} is ${npc.personality.alignment.toLowerCase()}.",
@@ -105,7 +105,7 @@ class NpcView extends StatelessWidget {
               const SizedBox(
                 height: 8,
               ),
-              Text(
+              SelectableText(
                 "${npc.name.toTitleCase()} is ${npc.relationshipStatus}. ${npc.pronoun.toTitleCase()} is ${npc.orientation}.",
                 style: Theme.of(context).textTheme.bodyText1,
               ),
@@ -129,7 +129,7 @@ class NpcView extends StatelessWidget {
               const SizedBox(
                 height: 8,
               ),
-              Text(
+              SelectableText(
                 "${npc.name.toTitleCase()} ${npc.hook}",
                 style: Theme.of(context).textTheme.bodyText1,
               ),

@@ -34,7 +34,7 @@ class PhysicalGenerator {
     } else if (race == Race.goliath) {
       return goliathHair[random.nextInt(goliathHair.length)];
     }
-    if (random.nextInt(50) < 8) {
+    if (race != Race.elf && random.nextInt(50) < 8) {
       return "bald head";
     }
     String length = hairLength[random.nextInt(hairLength.length)];

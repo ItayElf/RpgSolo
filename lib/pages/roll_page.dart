@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:rpgsolo/components/sidebar.dart';
 import 'package:rpgsolo/utils/dice.dart';
 
 class RollPage extends StatefulWidget {
@@ -34,6 +35,9 @@ class _RollPageState extends State<RollPage> {
       appBar: AppBar(
         title: const Text("Dice Roller"),
         centerTitle: true,
+      ),
+      drawer: const SideBar(
+        pageId: 1,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

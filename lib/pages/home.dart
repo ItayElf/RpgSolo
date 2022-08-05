@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rpgsolo/components/sidebar.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -9,6 +10,9 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         title: const Text("RpgSolo"),
         centerTitle: true,
+      ),
+      drawer: const SideBar(
+        pageId: 0,
       ),
       body: Center(
         child: Text(
