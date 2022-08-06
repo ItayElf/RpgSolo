@@ -19,14 +19,35 @@ class LocationGenerator {
     Npc owner = _generateLocationOwner(type, race, rand);
     String name = _generateLocationName(type, owner.firstName, rand);
     String location = _generateLocationLocation(type, rand);
-    String description = _generateDescription(
-        type, name, owner, rand); //TODO: fix monument location
+    String description = _generateDescription(type, name, owner, rand);
     Location l = Location(
         name: name,
         owner: owner,
         location: location,
         description: description,
         type: type);
+    l = _fixLocation(l);
+    return l;
+  }
+
+  static Location _fixLocation(Location location) {
+    Location l = location;
+    if (location.type == LocationType.monument) {
+      final RegExp reg = RegExp("this (.*?) is here to");
+      String chunk = reg.firstMatch(location.description)?.group(0) ?? "";
+      for (String type in monumentDesc2) {
+        if (chunk.contains(type)) {
+          l = l.copyWith(name: type.toTitleCase());
+          break;
+        }
+      }
+      for (String loc in monumentDesc3) {
+        if (chunk.contains(loc)) {
+          l = l.copyWith(location: loc);
+          break;
+        }
+      }
+    }
     return l;
   }
 
