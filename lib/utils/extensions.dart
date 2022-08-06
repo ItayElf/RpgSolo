@@ -25,6 +25,8 @@ extension LocationTypeExtension on LocationType {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{'name': name};
   }
+
+  String get printedName => name == "generalStore" ? "general store" : name;
 }
 
 class SlideRoute extends MaterialPageRoute {

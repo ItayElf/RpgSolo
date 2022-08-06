@@ -2191,7 +2191,6 @@ const storeNames2 = [
   "Crow",
   "Cup",
   "Curtain",
-  "Cyborg",
   "Day",
   "Disguise",
   "Dish",
@@ -2907,19 +2906,19 @@ const towerConcern = [
   'aquiring knowledge'
 ];
 const towerLevels = [
-  'ritual chambers',
-  'mutational experiment laboratory',
-  'alchemical laboratory',
-  'scrying chambers',
-  'necromantic laboratory',
+  'a ritual chambers',
+  'a mutational experiment laboratory',
+  'an alchemical laboratory',
+  'a scrying chambers',
+  'a necromantic laboratory',
   'cages and holding pens',
-  "henchmen's quarters",
+  "a henchmen's quarters",
   'enchanted portrait galleries',
-  'musical room',
-  'trophy room',
+  'a musical room',
+  'a trophy room',
   "apprentice's chambers",
-  'treasure vault',
-  'observatory',
+  'a treasure vault',
+  'an observatory',
 ];
 const towerProtection = [
   'tripwires that fire crossbows',

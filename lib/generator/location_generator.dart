@@ -17,7 +17,8 @@ class LocationGenerator {
     Race race = mainRace ?? Race.values[rand.nextInt(Race.values.length)];
 
     Npc owner = _generateLocationOwner(type, race, rand);
-    String name = _generateLocationName(type, owner.firstName, rand);
+    String name =
+        _generateLocationName(type, owner.firstName, rand).toLowerCase();
     String location = _generateLocationLocation(type, rand);
     String description = _generateDescription(type, name, owner, rand);
     Location l = Location(
@@ -131,7 +132,7 @@ class LocationGenerator {
       LocationType type, String name, Npc owner, Random random) {
     int floors = random.nextInt(6 - 2) + 2;
     String outside =
-        "$name is a ${towerSize[floors - 2]} tower made out of ${towerStone[random.nextInt(towerStone.length)]} and is ${towerAesthetic[random.nextInt(towerAesthetic.length)]}.";
+        "${name.toTitleCase()} is a ${towerSize[floors - 2]} tower made out of ${towerStone[random.nextInt(towerStone.length)]} and is ${towerAesthetic[random.nextInt(towerAesthetic.length)]}.";
     String built =
         "The tower was built ${monumentDesc1[random.nextInt(monumentDesc1.length)]} ago and is currently home to ${owner.name.toTitleCase()}, a wizard who is concerned with ${towerConcern[random.nextInt(towerConcern.length)]}.";
     String levels = "The tower contains $floors levels,";
@@ -139,7 +140,7 @@ class LocationGenerator {
       levels += " the wizard's private chambers and a library.";
     } else if (floors == 3) {
       levels +=
-          " the wizard's private chambers, a library and a ${towerLevels[random.nextInt(towerLevels.length)]}.";
+          " the wizard's private chambers, a library and ${towerLevels[random.nextInt(towerLevels.length)]}.";
     } else if (floors == 4) {
       String level1 = towerLevels[random.nextInt(towerLevels.length)];
       String level2 = towerLevels[random.nextInt(towerLevels.length)];
@@ -147,7 +148,7 @@ class LocationGenerator {
         level2 = towerLevels[random.nextInt(towerLevels.length)];
       }
       levels +=
-          " the wizard's private chambers, a library, a $level1 and a $level2.";
+          " the wizard's private chambers, a library, $level1 and $level2.";
     } else if (floors == 5) {
       List<String> pool = List.from(towerLevels);
       String level1 = pool[random.nextInt(pool.length)];
@@ -156,17 +157,17 @@ class LocationGenerator {
       pool.remove(level2);
       String level3 = pool[random.nextInt(pool.length)];
       levels +=
-          " the wizard's private chambers, a library, a $level1, $level2 and a $level3.";
+          " the wizard's private chambers, a library, $level1, $level2 and $level3.";
     }
     levels +=
         " The tower is protected by ${towerProtection[random.nextInt(towerProtection.length)]}";
-    return "$outside $built $levels";
+    return "$outside $built $levels.";
   }
 
   static String _generateBuildingDescription(
       LocationType type, String name, Random random) {
     String outside =
-        "$name looks ${buildingOustide1[random.nextInt(buildingOustide1.length)]} from outside. It has been built with ${buildingOustide2[random.nextInt(buildingOustide2.length)]} and has ${buildingOustide3[random.nextInt(buildingOustide3.length)]} decorations. ${buildingOustide4[random.nextInt(buildingOustide4.length)]} windows ${buildingOustide5[random.nextInt(buildingOustide5.length)]} and have been added to the house ${buildingOustide6[random.nextInt(buildingOustide6.length)]}.";
+        "looks ${buildingOustide1[random.nextInt(buildingOustide1.length)]} from outside. It has been built with ${buildingOustide2[random.nextInt(buildingOustide2.length)]} and has ${buildingOustide3[random.nextInt(buildingOustide3.length)]} decorations. ${buildingOustide4[random.nextInt(buildingOustide4.length)]} windows ${buildingOustide5[random.nextInt(buildingOustide5.length)]} and have been added to the house ${buildingOustide6[random.nextInt(buildingOustide6.length)]}.";
     String shape =
         "This ${type.name} is ${buildingShape1[random.nextInt(buildingShape1.length)]}. ${buildingShape2[random.nextInt(buildingShape2.length)]}.";
     late String secondFloor;
