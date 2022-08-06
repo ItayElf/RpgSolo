@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:rpgsolo/data/name_data.dart';
+import 'package:rpgsolo/data/npcs/name_data.dart';
 import 'package:rpgsolo/data/races.dart';
 
 class NameGenerator {

@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:rpgsolo/classes/physical.dart';
-import 'package:rpgsolo/data/physical_data.dart';
+import 'package:rpgsolo/data/npcs/physical_data.dart';
 import 'package:rpgsolo/data/races.dart';
 
 class PhysicalGenerator {

@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:rpgsolo/classes/npc.dart';
 import 'package:rpgsolo/classes/personality.dart';
 import 'package:rpgsolo/classes/physical.dart';
-import 'package:rpgsolo/data/npc_data.dart';
+import 'package:rpgsolo/data/npcs/npc_data.dart';
 import 'package:rpgsolo/data/races.dart';
 import 'package:rpgsolo/generator/name_generator.dart';
 import 'package:rpgsolo/generator/personality_generator.dart';

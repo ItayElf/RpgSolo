@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rpgsolo/generator/npc_generator.dart';
 import 'package:rpgsolo/pages/Home.dart';
-import 'package:rpgsolo/pages/generate_pages/generate_npc.dart';
-import 'package:rpgsolo/pages/views/npc_view.dart';
-import 'package:rpgsolo/utils/extensions.dart';
 
 void main() {
   runApp(const MyApp());

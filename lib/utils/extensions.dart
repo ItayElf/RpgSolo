@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rpgsolo/data/races.dart';
+import 'package:rpgsolo/data/towns/locations_type.dart';
 
 extension StringExtension on String {
   String toTitleCase() {
@@ -18,10 +19,11 @@ extension RaceExtention on Race {
       : name == "halfOrc"
           ? "half-orc"
           : name;
+}
 
-  Race fromString(String name) {
-    return Race.values
-        .firstWhere((element) => element.toString() == "Race.$name");
+extension LocationTypeExtension on LocationType {
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'name': name};
   }
 }
 
