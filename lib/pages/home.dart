@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rpgsolo/components/sidebar.dart';
+import 'package:rpgsolo/pages/generate_pages/generate_location.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_npc.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
@@ -52,6 +53,10 @@ class Home extends StatelessWidget {
                     title: "NPC",
                     moveTo: GenerateNpc(),
                   ),
+                  GeneratorButton(
+                    title: "Location",
+                    moveTo: GenerateLocation(),
+                  ),
                 ],
               )
             ],
@@ -73,12 +78,16 @@ class GeneratorButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () =>
           Navigator.of(context).push(SlideRoute(builder: (context) => moveTo)),
-      child: Text(
-        title,
-        style: Theme.of(context)
-            .textTheme
-            .headline6
-            ?.copyWith(color: Colors.white),
+      child: FittedBox(
+        fit: BoxFit.fill,
+        child: Text(
+          title,
+          textAlign: TextAlign.center,
+          style: Theme.of(context)
+              .textTheme
+              .headline6
+              ?.copyWith(color: Colors.white),
+        ),
       ),
     );
   }

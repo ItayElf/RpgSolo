@@ -35,13 +35,16 @@ class LocationView extends StatelessWidget {
                 height: 16,
               ),
               Center(
-                child: SelectableText(
-                  location.name.toTitleCase(),
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4
-                      ?.copyWith(fontWeight: FontWeight.bold),
+                child: FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: SelectableText(
+                    location.name.toTitleCase(),
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4
+                        ?.copyWith(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
               Divider(

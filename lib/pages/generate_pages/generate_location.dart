@@ -1,29 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:rpgsolo/classes/npc.dart';
-import 'package:rpgsolo/data/races.dart';
-import 'package:rpgsolo/generator/npc_generator.dart';
-import 'package:rpgsolo/pages/views/npc_view.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:rpgsolo/classes/towns/location.dart';
+import 'package:rpgsolo/data/towns/locations_type.dart';
+import 'package:rpgsolo/generator/location_generator.dart';
+import 'package:rpgsolo/pages/views/location_view.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
-class GenerateNpc extends StatelessWidget {
-  const GenerateNpc({super.key});
+class GenerateLocation extends StatelessWidget {
+  const GenerateLocation({super.key});
 
-  void onClick(BuildContext context, Race? race) {
-    Npc npc = NpcGenerator.generate(race);
+  void onClick(BuildContext context, LocationType? type) {
+    Location location = LocationGenerator.generate(type);
     Navigator.push(
       context,
       SlideRoute(
-        builder: (context) => NpcView(npc: npc),
+        builder: (context) => LocationView(location: location),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final options = [null, ...Race.values];
+    final options = [null, ...LocationType.values];
     return Scaffold(
       appBar: AppBar(
-        title: const Text("NPC Generator"),
+        title: const Text("Location Generator"),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -34,7 +36,7 @@ class GenerateNpc extends StatelessWidget {
             ),
             Center(
               child: Text(
-                "Choose a Race:",
+                "Choose a Location Type:",
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline5,
               ),
@@ -49,9 +51,7 @@ class GenerateNpc extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: options.length,
                 itemBuilder: (context, i) => ElevatedButton(
-                  onPressed: () {
-                    onClick(context, options[i]);
-                  },
+                  onPressed: () => onClick(context, options[i]),
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Text(

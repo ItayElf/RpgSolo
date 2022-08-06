@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rpgsolo/generator/location_generator.dart';
-import 'package:rpgsolo/pages/views/location_view.dart';
+import 'package:rpgsolo/pages/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -45,9 +44,7 @@ class MyApp extends StatelessWidget {
         ),
         primarySwatch: Colors.red,
       ),
-      home: LocationView(
-        location: LocationGenerator.generate(),
-      ),
+      home: const Home(),
     );
   }
 }
