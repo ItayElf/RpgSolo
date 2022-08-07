@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rpgsolo/data/races.dart';
-import 'package:rpgsolo/data/towns/locations_type.dart';
+import 'package:rpgsolo/data/towns/locations_data.dart';
+import 'package:rpgsolo/data/towns/town_data.dart';
 
 extension StringExtension on String {
   String toTitleCase() {
@@ -19,6 +20,11 @@ extension RaceExtention on Race {
       : name == "halfOrc"
           ? "half-orc"
           : name;
+  String get pluralName => name == "halfElf"
+      ? "half-elves"
+      : name == "elf"
+          ? "elves"
+          : "${printedName}s";
 }
 
 extension LocationTypeExtension on LocationType {
@@ -27,6 +33,12 @@ extension LocationTypeExtension on LocationType {
   }
 
   String get printedName => name == "generalStore" ? "general store" : name;
+}
+
+extension TownTypeExtension on TownType {
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'name': name};
+  }
 }
 
 class SlideRoute extends MaterialPageRoute {

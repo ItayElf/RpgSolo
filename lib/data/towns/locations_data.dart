@@ -1,4 +1,16 @@
-import 'package:rpgsolo/data/towns/locations_type.dart';
+//-----------------------------------Type-----------------------------------
+enum LocationType {
+  armory,
+  generalStore,
+  guildhall,
+  library,
+  monument,
+  smithy,
+  tavern,
+  temple,
+  tower,
+  weaponry,
+}
 
 //-----------------------------------Owner-----------------------------------
 const ownerOccupation = {
@@ -2142,13 +2154,10 @@ const storeNames1 = [
 ];
 const storeNames2 = [
   "Adventure",
-  "Android",
-  "Antenna",
   "Anvil",
   "Apple",
   "Armor",
   "Arsenal",
-  "Asteroid",
   "Bear",
   "Bed",
   "Bee",
@@ -2266,7 +2275,6 @@ const storeNames2 = [
   "Pencil",
   "Pepper",
   "Phantom",
-  "Phone",
   "Pig",
   "Pixy",
   "Plane",
@@ -2307,7 +2315,6 @@ const storeNames2 = [
   "Stone",
   "Stove",
   "Sword",
-  "TV",
   "Table",
   "Tankard",
   "Temple",

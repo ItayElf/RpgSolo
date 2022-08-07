@@ -4,7 +4,6 @@ import 'package:rpgsolo/classes/npc.dart';
 import 'package:rpgsolo/classes/towns/location.dart';
 import 'package:rpgsolo/data/races.dart';
 import 'package:rpgsolo/data/towns/locations_data.dart';
-import 'package:rpgsolo/data/towns/locations_type.dart';
 import 'package:rpgsolo/generator/npc_generator.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
@@ -71,8 +70,7 @@ class LocationGenerator {
     } else if (type == LocationType.tower) {
       return "the ${towerNames[random.nextInt(towerNames.length)]}${random.nextBool() ? " Tower" : " Spire"}";
     } else if (type == LocationType.tavern) {
-      return tavernNames1[random.nextInt(tavernNames1.length)] +
-          tavernNames2[random.nextInt(tavernNames2.length)];
+      return "${tavernNames1[random.nextInt(tavernNames1.length)]} ${tavernNames2[random.nextInt(tavernNames2.length)]}";
     } else if (type == LocationType.temple) {
       return "the ${templeNames1[random.nextInt(templeNames1.length)]}${templeNames2[random.nextInt(templeNames2.length)]}";
     } else if (type == LocationType.guildhall) {

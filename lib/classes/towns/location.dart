@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 import 'package:rpgsolo/classes/npc.dart';
-import 'package:rpgsolo/data/towns/locations_type.dart';
+import 'package:rpgsolo/data/towns/locations_data.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
 class Location {

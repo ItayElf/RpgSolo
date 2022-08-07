@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rpgsolo/classes/towns/location.dart';
 import 'package:rpgsolo/components/npc_tile.dart';
-import 'package:rpgsolo/data/towns/locations_type.dart';
+import 'package:rpgsolo/data/towns/locations_data.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
 class LocationView extends StatelessWidget {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rpgsolo/generator/town_generator.dart';
 import 'package:rpgsolo/pages/home.dart';
 
 void main() {
@@ -11,6 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(TownGenerator.generate());
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
