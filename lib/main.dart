@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rpgsolo/generator/town_generator.dart';
 import 'package:rpgsolo/pages/home.dart';
+import 'package:rpgsolo/pages/views/town_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -46,7 +47,9 @@ class MyApp extends StatelessWidget {
         ),
         primarySwatch: Colors.red,
       ),
-      home: const Home(),
+      home: TownView(
+        town: TownGenerator.generate(),
+      ),
     );
   }
 }
