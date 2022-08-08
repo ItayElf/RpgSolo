@@ -67,6 +67,7 @@ class LocationView extends StatelessWidget {
               SelectableText(
                 getDescription(),
                 style: Theme.of(context).textTheme.bodyText1,
+                textAlign: TextAlign.justify,
               ),
               const SizedBox(
                 height: 8,

@@ -23,6 +23,7 @@ class TownGenerator {
     String name = _generateTownName(type, rand);
     String description = _generateDescription(
         type, mainRace, name, population, occupation, rand);
+    List<String> sidequests = _generateSidequests(type, rand);
     Town town = Town(
         name: name,
         townType: type,
@@ -31,7 +32,8 @@ class TownGenerator {
         description: description,
         occupation: occupation,
         npcs: npcs,
-        population: population);
+        population: population,
+        sidequests: sidequests);
     return town;
   }
 
@@ -96,5 +98,18 @@ class TownGenerator {
     } else {
       return "${townNames6[random.nextInt(townNames6.length)]}${townNames7[random.nextInt(townNames7.length)]}";
     }
+  }
+
+  static List<String> _generateSidequests(TownType townType, Random random) {
+    List<String> res = [];
+    late String side;
+    for (int _ in List.generate(townNpcs[townType] ?? 0, (i) => i)) {
+      side = townSidequests[random.nextInt(townSidequests.length)];
+      while (res.contains(side)) {
+        side = townSidequests[random.nextInt(townSidequests.length)];
+      }
+      res.add(side);
+    }
+    return res;
   }
 }

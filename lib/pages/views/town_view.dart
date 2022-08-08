@@ -59,6 +59,46 @@ class TownView extends StatelessWidget {
               SelectableText(
                 town.description,
                 style: Theme.of(context).textTheme.bodyText1,
+                textAlign: TextAlign.justify,
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Divider(
+                color: Theme.of(context).primaryColorLight,
+                thickness: 2,
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Text(
+                "Sidequests:",
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: town.sidequests.length,
+                itemBuilder: (context, i) => Row(
+                  children: [
+                    Text(
+                      "\u2022 ",
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                    Flexible(
+                      child: SelectableText(
+                        town.sidequests[i],
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                    )
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 8,

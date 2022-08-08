@@ -18,6 +18,7 @@ class Town {
   final String occupation;
   final List<Npc> npcs;
   final int population;
+  final List<String> sidequests;
   Town({
     required this.name,
     required this.townType,
@@ -27,6 +28,7 @@ class Town {
     required this.occupation,
     required this.npcs,
     required this.population,
+    required this.sidequests,
   });
 
   Town copyWith({
@@ -38,6 +40,7 @@ class Town {
     String? occupation,
     List<Npc>? npcs,
     int? population,
+    List<String>? sidequests,
   }) {
     return Town(
       name: name ?? this.name,
@@ -48,6 +51,7 @@ class Town {
       occupation: occupation ?? this.occupation,
       npcs: npcs ?? this.npcs,
       population: population ?? this.population,
+      sidequests: sidequests ?? this.sidequests,
     );
   }
 
@@ -61,6 +65,7 @@ class Town {
       'occupation': occupation,
       'npcs': npcs.map((x) => x.toMap()).toList(),
       'population': population,
+      'sidequests': sidequests,
     };
   }
 
@@ -84,6 +89,9 @@ class Town {
         ),
       ),
       population: map['population'] as int,
+      sidequests: List<String>.from(
+        (map['sidequests'] as List<String>),
+      ),
     );
   }
 
@@ -94,7 +102,7 @@ class Town {
 
   @override
   String toString() {
-    return 'Town(name: $name, townType: $townType, mainRace: $mainRace, locations: $locations, description: $description, occupation: $occupation, npcs: $npcs, population: $population)';
+    return 'Town(name: $name, townType: $townType, mainRace: $mainRace, locations: $locations, description: $description, occupation: $occupation, npcs: $npcs, population: $population, sidequests: $sidequests)';
   }
 
   @override
@@ -108,7 +116,8 @@ class Town {
         other.description == description &&
         other.occupation == occupation &&
         listEquals(other.npcs, npcs) &&
-        other.population == population;
+        other.population == population &&
+        listEquals(other.sidequests, sidequests);
   }
 
   @override
@@ -120,6 +129,7 @@ class Town {
         description.hashCode ^
         occupation.hashCode ^
         npcs.hashCode ^
-        population.hashCode;
+        population.hashCode ^
+        sidequests.hashCode;
   }
 }

@@ -61,6 +61,7 @@ class NpcView extends StatelessWidget {
                 "${npc.pronoun.toTitleCase()} has a ${npc.physical.face}. "
                 "${npc.pronoun.toTitleCase()} ${npc.physical.special}${npc.physical.special2 != null ? ' and ${npc.physical.special2}' : ''}.",
                 style: Theme.of(context).textTheme.bodyText1,
+                textAlign: TextAlign.justify,
               ),
               const SizedBox(
                 height: 8,
@@ -87,6 +88,7 @@ class NpcView extends StatelessWidget {
                 "${npc.firstName.toTitleCase()} ${npc.personality.quirk1.replaceAll(".", "")} and ${npc.personality.quirk2} "
                 "${npc.pronoun.toTitleCase()} is ${npc.personality.alignment.toLowerCase()}.",
                 style: Theme.of(context).textTheme.bodyText1,
+                textAlign: TextAlign.justify,
               ),
               const SizedBox(
                 height: 8,
@@ -135,6 +137,7 @@ class NpcView extends StatelessWidget {
               SelectableText(
                 "${npc.name.toTitleCase()} ${npc.hook}",
                 style: Theme.of(context).textTheme.bodyText1,
+                textAlign: TextAlign.justify,
               ),
             ],
           ),
