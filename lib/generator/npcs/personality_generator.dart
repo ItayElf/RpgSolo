@@ -32,10 +32,10 @@ class PersonalityGenerator {
     List<int> moralModifiers = moralAlignment[race] ?? [0, 0, 0];
     List<int> ethicalValues = List.generate(3, (index) => random.nextInt(7));
     List<int> moralValues = List.generate(3, (index) => random.nextInt(7));
-    [0, 1, 2].map((i) {
+    for (int i = 0; i < ethicalValues.length; i++) {
       ethicalValues[i] += ethicalModifiers[i];
       moralValues[i] += moralModifiers[i];
-    });
+    }
     int maxEthical = ethicalValues.reduce(max);
     int maxMoral = moralValues.reduce(max);
     String res = "";
