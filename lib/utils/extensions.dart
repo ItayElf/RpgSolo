@@ -5,7 +5,8 @@ import 'package:rpgsolo/data/towns/town_data.dart';
 
 extension StringExtension on String {
   String toTitleCase() {
-    title(s) => "${s[0].toUpperCase()}${s.substring(1).toLowerCase()}";
+    title(s) =>
+        s == "" ? "" : "${s[0].toUpperCase()}${s.substring(1).toLowerCase()}";
     return split(" ").map(title).join(" ");
   }
 }

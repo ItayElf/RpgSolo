@@ -81,7 +81,7 @@ class TownView extends StatelessWidget {
               const SizedBox(
                 height: 8,
               ),
-              ListView.builder(
+              ListView.separated(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: town.sidequests.length,
@@ -98,6 +98,9 @@ class TownView extends StatelessWidget {
                       ),
                     )
                   ],
+                ),
+                separatorBuilder: (context, index) => const SizedBox(
+                  height: 8,
                 ),
               ),
               const SizedBox(

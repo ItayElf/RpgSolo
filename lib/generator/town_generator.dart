@@ -7,6 +7,7 @@ import 'package:rpgsolo/data/races.dart';
 import 'package:rpgsolo/data/towns/locations_data.dart';
 import 'package:rpgsolo/data/towns/town_data.dart';
 import 'package:rpgsolo/generator/location_generator.dart';
+import 'package:rpgsolo/generator/name_generator.dart';
 import 'package:rpgsolo/generator/npc_generator.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
@@ -20,7 +21,7 @@ class TownGenerator {
     String occupation = townOccupations[rand.nextInt(townOccupations.length)];
     List<Npc> npcs = _generateNpcs(type, mainRace, occupation, rand);
     int population = _generatePopulation(type, rand);
-    String name = _generateTownName(type, rand);
+    String name = _generateTownName(type, mainRace, rand);
     String description = _generateDescription(
         type, mainRace, name, population, occupation, rand);
     List<String> sidequests = _generateSidequests(type, rand);
@@ -92,11 +93,26 @@ class TownGenerator {
     return "$looks $special";
   }
 
-  static String _generateTownName(TownType townType, Random random) {
-    if (random.nextBool()) {
-      return "${townNames1[random.nextInt(townNames1.length)]}${townNames2[random.nextInt(townNames2.length)]}${townNames6[random.nextInt(townNames6.length)]}";
+  static String _generateTownName(
+      TownType townType, Race mainRace, Random random) {
+    if (mainRace == Race.dwarf) {
+      return "${townNamesDwarfs1[random.nextInt(townNamesDwarfs1.length)]}${townNamesDwarfs2[random.nextInt(townNamesDwarfs2.length)]}${townNamesDwarfs3[random.nextInt(townNamesDwarfs3.length)]}";
+    } else if (mainRace == Race.elf) {
+      return "${townNamesElves1[random.nextInt(townNamesElves1.length)]}${townNamesElves2[random.nextInt(townNamesElves2.length)]}${townNamesElves3[random.nextInt(townNamesElves3.length)]}";
+    } else if (mainRace == Race.gnome) {
+      return NameGenerator.generate(random.nextBool(), Race.gnome)
+          .split(" ")[0];
+    } else if (mainRace == Race.halfling) {
+      List<String> name =
+          NameGenerator.generate(random.nextBool(), Race.halfling).split(" ");
+      name.removeAt(0);
+      return name.join(" ");
+    } else if (mainRace == Race.halfOrc) {
+      return "${townNamesOrcs1[random.nextInt(townNamesOrcs1.length)]}${townNamesOrcs2[random.nextInt(townNamesOrcs2.length)]}${townNamesOrcs3[random.nextInt(townNamesOrcs3.length)]}${townNamesOrcs2[random.nextInt(townNamesOrcs2.length)]}${townNamesOrcs4[random.nextInt(townNamesOrcs4.length)]}";
+    } else if (random.nextBool()) {
+      return "${townNames1[random.nextInt(townNames1.length)]}${townNames2[random.nextInt(townNames2.length)]}${townNames3[random.nextInt(townNames3.length)]}";
     } else {
-      return "${townNames6[random.nextInt(townNames6.length)]}${townNames7[random.nextInt(townNames7.length)]}";
+      return "${townNames3[random.nextInt(townNames3.length)]}${townNames4[random.nextInt(townNames4.length)]}";
     }
   }
 

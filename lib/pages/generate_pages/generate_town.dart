@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:rpgsolo/classes/towns/town.dart';
 import 'package:rpgsolo/data/towns/town_data.dart';
 import 'package:rpgsolo/generator/town_generator.dart';
