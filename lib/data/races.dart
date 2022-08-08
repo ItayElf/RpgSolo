@@ -11,3 +11,23 @@ enum Race {
   human,
   tiefling,
 }
+
+enum VillainRace {
+  dragonborn,
+  dwarf,
+  elf,
+  gnome,
+  goblin,
+  goliath,
+  halfling,
+  halfElf,
+  halfOrc,
+  human,
+  tiefling,
+  orc,
+  drow,
+  halfDrow,
+  duergar,
+  giant,
+  yuanTi,
+}

@@ -28,6 +28,29 @@ extension RaceExtention on Race {
           : "${printedName}s";
 }
 
+extension VillainRaceExtention on VillainRace {
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'name': name};
+  }
+
+  String get printedName =>
+      {
+        "halfElf": "half-elf",
+        "halfOrc": "half-orc",
+        "halfDrow": "half-drow",
+        "yuanTi": "yuan-ti"
+      }[name] ??
+      name;
+
+  String get pluralName => name == "halfElf"
+      ? "half-elves"
+      : name == "elf"
+          ? "elves"
+          : "${printedName}s";
+
+  bool get isNormalRace => Race.values.map((e) => e.name).contains(name);
+}
+
 extension LocationTypeExtension on LocationType {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{'name': name};

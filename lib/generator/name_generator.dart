@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:rpgsolo/data/npcs/name_data.dart';
 import 'package:rpgsolo/data/races.dart';
+import 'package:rpgsolo/data/villains/villain_names.dart';
+import 'package:rpgsolo/utils/extensions.dart';
 
 class NameGenerator {
   static String generate(bool isMale, [Race? race, Random? random]) {
@@ -241,5 +243,83 @@ class NameGenerator {
       tieflingName4[rand2],
     ].join("");
     return isMale ? "$nameM $nameF" : "$nameF $nameM";
+  }
+}
+
+class VillainRaceNameGenerator {
+  static String generate(bool isMale, [VillainRace? race, Random? random]) {
+    Random rand = random ?? Random();
+    VillainRace r =
+        race ?? VillainRace.values[rand.nextInt(VillainRace.values.length)];
+    if (r.isNormalRace) {
+      return NameGenerator.generate(
+        isMale,
+        Race.values.firstWhere((e) => e.toString() == "Race.${r.name}"),
+        random,
+      );
+    } else if (r == VillainRace.orc) {
+      return NameGenerator.generate(isMale, Race.halfOrc, random);
+    } else if (r == VillainRace.duergar) {
+      return NameGenerator.generate(isMale, Race.dwarf, random);
+    } else if (r == VillainRace.drow) {
+      return _generateDrowName(isMale, rand);
+    } else if (r == VillainRace.halfDrow) {
+      return rand.nextBool()
+          ? _generateDrowName(isMale, rand)
+          : NameGenerator.generate(isMale, Race.human, rand);
+    } else if (r == VillainRace.giant) {
+      return _generateGiantName(isMale, rand);
+    } else if (r == VillainRace.yuanTi) {
+      return _generateYuanTiName(isMale, rand);
+    }
+    throw Exception("Inavlid race: ${r.name}");
+  }
+
+  static String _generateDrowName(bool isMale, Random random) {
+    String sur =
+        "${drowNames1[random.nextInt(drowNames1.length)]}${drowNames2[random.nextInt(drowNames2.length)]}";
+    late String name;
+    if (isMale) {
+      name =
+          "${drowNames5[random.nextInt(drowNames5.length)]}${drowNames6[random.nextInt(drowNames6.length)]}";
+    } else {
+      name =
+          "${drowNames3[random.nextInt(drowNames3.length)]}${drowNames4[random.nextInt(drowNames4.length)]}";
+    }
+    return "$name $sur".toLowerCase();
+  }
+
+  static String _generateGiantName(bool isMale, Random random) {
+    String name =
+        "${giantNames1[random.nextInt(giantNames1.length)]}${giantNames2[random.nextInt(giantNames2.length)]}${giantNames3[random.nextInt(giantNames3.length)]}${giantNames4[random.nextInt(giantNames4.length)]}";
+    String sur =
+        "${giantNames1[random.nextInt(giantNames1.length)]}${giantNames2[random.nextInt(giantNames2.length)]}${giantNames3[random.nextInt(giantNames3.length)]}${giantNames4[random.nextInt(giantNames4.length)]}";
+    while (sur == name) {
+      sur =
+          "${giantNames1[random.nextInt(giantNames1.length)]}${giantNames2[random.nextInt(giantNames2.length)]}${giantNames3[random.nextInt(giantNames3.length)]}${giantNames4[random.nextInt(giantNames4.length)]}";
+    }
+    return "$name $sur".toLowerCase();
+  }
+
+  static String _generateYuanTiName(bool isMale, Random random) {
+    getName() {
+      int rand = random.nextInt(yuanTiNames1.length),
+          rand2 = random.nextInt(yuanTiNames2.length),
+          rand3 = random.nextInt(yuanTiNames3.length),
+          rand4 = random.nextInt(yuanTiNames5.length),
+          rand5 = random.nextInt(yuanTiNames6.length);
+      while (yuanTiNames1[rand] == yuanTiNames3[rand3] ||
+          yuanTiNames3[rand3] == yuanTiNames6[rand5]) {
+        rand3 = random.nextInt(yuanTiNames3.length);
+      }
+      return "${yuanTiNames1[rand]}${yuanTiNames2[rand2]}${yuanTiNames3[rand3]}${yuanTiNames5[rand4]}${yuanTiNames6[rand5]}";
+    }
+
+    String n1 = getName();
+    String n2 = getName();
+    while (n2 == n1) {
+      n2 = getName();
+    }
+    return "$n1 $n2".toLowerCase();
   }
 }
