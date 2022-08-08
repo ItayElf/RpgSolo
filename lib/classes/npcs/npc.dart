@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:rpgsolo/classes/personality.dart';
-import 'package:rpgsolo/classes/physical.dart';
+import 'package:rpgsolo/classes/npcs/personality.dart';
+import 'package:rpgsolo/classes/npcs/physical.dart';
 import 'package:rpgsolo/data/races.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 

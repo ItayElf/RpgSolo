@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:rpgsolo/classes/physical.dart';
+import 'package:rpgsolo/classes/npcs/physical.dart';
 import 'package:rpgsolo/data/npcs/physical_data.dart';
 import 'package:rpgsolo/data/races.dart';
 import 'package:rpgsolo/data/villains/villain_physical_data.dart';

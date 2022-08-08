@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:rpgsolo/classes/npc.dart';
+import 'package:rpgsolo/classes/npcs/npc.dart';
 import 'package:rpgsolo/data/towns/locations_data.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 

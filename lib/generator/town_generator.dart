@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:rpgsolo/classes/npc.dart';
+import 'package:rpgsolo/classes/npcs/npc.dart';
 import 'package:rpgsolo/classes/towns/location.dart';
 import 'package:rpgsolo/classes/towns/town.dart';
 import 'package:rpgsolo/data/races.dart';

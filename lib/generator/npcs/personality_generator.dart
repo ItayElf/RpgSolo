@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:rpgsolo/classes/personality.dart';
+import 'package:rpgsolo/classes/npcs/personality.dart';
 import 'package:rpgsolo/data/npcs/personality_data.dart';
 import 'package:rpgsolo/data/races.dart';
 

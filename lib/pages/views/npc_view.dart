@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rpgsolo/classes/npc.dart';
+import 'package:rpgsolo/classes/npcs/npc.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
 class NpcView extends StatelessWidget {
