@@ -49,6 +49,8 @@ extension VillainRaceExtention on VillainRace {
           : "${printedName}s";
 
   bool get isNormalRace => Race.values.map((e) => e.name).contains(name);
+  Race get asRace =>
+      Race.values.firstWhere((e) => e.toString() == "Race.$name");
 }
 
 extension LocationTypeExtension on LocationType {

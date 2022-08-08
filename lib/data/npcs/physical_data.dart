@@ -28,11 +28,18 @@ const hairLength = ['cropped', 'short', 'long', 'very long', 'extremely long'];
 const hairType = ['straight', 'wavy', 'curled', 'braided'];
 const hairColor = [
   'brown',
+  'brown',
+  'brown',
   'auburn',
+  'auburn',
+  'auburn',
+  'blond',
   'blond',
   'red',
   'gray',
   'white',
+  'black',
+  'black',
   'black',
   'dyed'
 ];
@@ -40,11 +47,18 @@ const hairColor = [
 //-----------------------------------Eyes-----------------------------------
 const eyeColor = [
   'brown',
+  'brown',
+  'brown',
+  'blue',
+  'green',
+  'brown',
   'blue',
   'green',
   'golden',
   'cyan',
   'gray',
+  'black',
+  'black',
   'black',
   'red'
 ];
@@ -73,7 +87,7 @@ const scaleColor = [
   'white'
 ];
 const orcSkin = ['green', 'gray'];
-const humanSkin = ['white', 'pale', 'red', 'brown', 'dark'];
+const humanSkin = ['white', 'pale', 'brown', 'dark'];
 const elfSkin = ['blueish', 'pink', 'golden', 'silver', 'green', 'copper'];
 const tieflingSkin = ['red', 'purple'];
 const gnomeSkin = ['white', 'pink', 'brown', 'gray', 'golden'];

@@ -7,8 +7,8 @@ import 'package:rpgsolo/data/races.dart';
 import 'package:rpgsolo/data/towns/locations_data.dart';
 import 'package:rpgsolo/data/towns/town_data.dart';
 import 'package:rpgsolo/generator/location_generator.dart';
-import 'package:rpgsolo/generator/name_generator.dart';
-import 'package:rpgsolo/generator/npc_generator.dart';
+import 'package:rpgsolo/generator/npcs/name_generator.dart';
+import 'package:rpgsolo/generator/npcs/npc_generator.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
 class TownGenerator {

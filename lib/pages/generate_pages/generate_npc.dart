@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rpgsolo/classes/npc.dart';
 import 'package:rpgsolo/data/races.dart';
-import 'package:rpgsolo/generator/npc_generator.dart';
+import 'package:rpgsolo/generator/npcs/npc_generator.dart';
 import 'package:rpgsolo/pages/views/npc_view.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 

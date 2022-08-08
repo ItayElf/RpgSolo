@@ -5,9 +5,9 @@ import 'package:rpgsolo/classes/personality.dart';
 import 'package:rpgsolo/classes/physical.dart';
 import 'package:rpgsolo/data/npcs/npc_data.dart';
 import 'package:rpgsolo/data/races.dart';
-import 'package:rpgsolo/generator/name_generator.dart';
-import 'package:rpgsolo/generator/personality_generator.dart';
-import 'package:rpgsolo/generator/physical_generator.dart';
+import 'package:rpgsolo/generator/npcs/name_generator.dart';
+import 'package:rpgsolo/generator/npcs/personality_generator.dart';
+import 'package:rpgsolo/generator/npcs/physical_generator.dart';
 
 class NpcGenerator {
   static Npc generate([Race? race, Random? random]) {

@@ -7,7 +7,7 @@ import 'package:rpgsolo/data/races.dart';
 class PhysicalGenerator {
   static Physical generate(Race race, bool isMale, [Random? random]) {
     Random rand = random ?? Random();
-    String hair = _generateHair(race, rand);
+    String hair = _generateHair(race, isMale, rand);
     String eyes = "${eyeColor[rand.nextInt(eyeColor.length)]} eyes";
     String skin = _generateSkin(race, rand);
     int height = _generateHeight(race, rand);
@@ -28,13 +28,13 @@ class PhysicalGenerator {
     return physical;
   }
 
-  static String _generateHair(Race race, Random random) {
+  static String _generateHair(Race race, bool isMale, Random random) {
     if (race == Race.dragonborn) {
       return "${dragonHair[random.nextInt(dragonHair.length)]} head";
     } else if (race == Race.goliath) {
       return goliathHair[random.nextInt(goliathHair.length)];
     }
-    if (race != Race.elf && random.nextInt(50) < 8) {
+    if (race != Race.elf && isMale && random.nextInt(50) < 8) {
       return "bald head";
     }
     String length = hairLength[random.nextInt(hairLength.length)];
