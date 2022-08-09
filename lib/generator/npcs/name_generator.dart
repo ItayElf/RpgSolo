@@ -22,7 +22,11 @@ class NameGenerator {
       Race.human: _generateHumanName,
       Race.tiefling: _generateTieflingName,
     };
-    return (map[r] ?? () => "")(isMale, rand).toLowerCase();
+    String name = (map[r] ?? () => "")(isMale, rand).toLowerCase();
+    while (name.split(" ")[0].length > 7 || name.split(" ")[1].length > 7) {
+      name = (map[r] ?? () => "")(isMale, rand).toLowerCase();
+    }
+    return name;
   }
 
   static String _generateDragonbornName(bool isMale, Random random) {

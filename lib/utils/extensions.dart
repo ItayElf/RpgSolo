@@ -3,6 +3,7 @@ import 'package:rpgsolo/classes/villains/villain_action.dart';
 import 'package:rpgsolo/data/races.dart';
 import 'package:rpgsolo/data/towns/locations_data.dart';
 import 'package:rpgsolo/data/towns/town_data.dart';
+import 'package:rpgsolo/data/villains/villain_data.dart';
 
 extension StringExtension on String {
   String toTitleCase() {
@@ -69,6 +70,12 @@ extension TownTypeExtension on TownType {
 }
 
 extension ActionResultExtension on ActionResult {
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'name': name};
+  }
+}
+
+extension VillainPowerExtension on VillainPower {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{'name': name};
   }
