@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rpgsolo/generator/villains/villain_generator.dart';
 import 'package:rpgsolo/pages/home.dart';
-import 'package:rpgsolo/pages/views/villain_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -46,9 +44,7 @@ class MyApp extends StatelessWidget {
         ),
         primarySwatch: Colors.red,
       ),
-      home: VillainView(
-        villain: VillainGenerator.generate(),
-      ),
+      home: const Home(),
     );
   }
 }

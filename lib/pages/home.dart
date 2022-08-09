@@ -3,6 +3,7 @@ import 'package:rpgsolo/components/sidebar.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_location.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_npc.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_town.dart';
+import 'package:rpgsolo/pages/generate_pages/generate_villain.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
 class Home extends StatelessWidget {
@@ -61,6 +62,10 @@ class Home extends StatelessWidget {
                   GeneratorButton(
                     title: "Settlement",
                     moveTo: GenerateTown(),
+                  ),
+                  GeneratorButton(
+                    title: "Villain",
+                    moveTo: GenerateVillain(),
                   ),
                 ],
               )
