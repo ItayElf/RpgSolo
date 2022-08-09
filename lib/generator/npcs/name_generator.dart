@@ -23,7 +23,9 @@ class NameGenerator {
       Race.tiefling: _generateTieflingName,
     };
     String name = (map[r] ?? () => "")(isMale, rand).toLowerCase();
-    while (name.split(" ")[0].length > 7 || name.split(" ")[1].length > 7) {
+    int count = 0;
+    while ((name.split(" ")[0].length > 7 || name.split(" ")[1].length > 7) &&
+        count++ < 5) {
       name = (map[r] ?? () => "")(isMale, rand).toLowerCase();
     }
     return name;

@@ -69,6 +69,10 @@ class Villain {
     );
   }
 
+  String get pronoun => isMale ? "he" : "she";
+  String get relPronoun => isMale ? "his" : "her";
+  String get firstName => name.split(" ")[0];
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'name': name,

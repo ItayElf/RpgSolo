@@ -79,6 +79,16 @@ extension VillainPowerExtension on VillainPower {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{'name': name};
   }
+
+  String get printedName =>
+      {
+        "nuisance": "a nuisance villain",
+        "local": "a local villain",
+        "regional": "a regional villain",
+        "national": "a national villain",
+        "archvillain": "an archvillain"
+      }[name] ??
+      name;
 }
 
 class SlideRoute extends MaterialPageRoute {

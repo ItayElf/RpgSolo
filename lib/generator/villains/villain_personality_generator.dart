@@ -13,9 +13,6 @@ class VillainPersonalityGenerator {
     Random rand = random ?? Random();
     if (race.isNormalRace) {
       personality = PersonalityGenerator.generate(race.asRace);
-      personality = personality.copyWith(
-          alignment: personality.alignment
-              .replaceAll("Good", rand.nextBool() ? "Natural" : "Evil"));
     } else {
       String alignment = _generateAlignment(race, rand);
       String trait1 = _generateTrait(race, rand);
@@ -29,7 +26,8 @@ class VillainPersonalityGenerator {
         quirk2 = _generateQuirk(race, rand);
       }
       personality = Personality(
-          alignment: alignment,
+          alignment: alignment.replaceAll(
+              "Good", rand.nextBool() ? "Natural" : "Evil"),
           trait1: trait1,
           trait2: trait2,
           quirk1: quirk1,

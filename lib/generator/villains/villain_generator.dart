@@ -32,7 +32,7 @@ class VillainGenerator {
     Physical physical = VillainPhysicalGenerator.generate(race, isMale, rand);
     Personality personality =
         VillainPersonalityGenerator.generate(race, random);
-    VillainMotives motives = VillainMotivesGenerator.generate(random);
+    VillainMotives motives = VillainMotivesGenerator.generate(isMale, random);
     List<VillainAction> actions = List.generate(villainActions[power] ?? 0,
         (index) => VillainActionGenerator.generate(name, isMale, rand));
     Villain villain = Villain(

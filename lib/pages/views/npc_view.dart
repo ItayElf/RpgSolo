@@ -11,7 +11,10 @@ class NpcView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${npc.name.toTitleCase()} (NPC)"),
+        title: FittedBox(
+          fit: BoxFit.fitWidth,
+          child: Text("${npc.name.toTitleCase()} (NPC)"),
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(

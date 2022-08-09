@@ -226,7 +226,6 @@ const quirks = [
   'goes out at night secretly looking for weapons.',
   'owns a box full of dead animals.',
   'sets up local dance clubs.',
-  'goes to church to pick up sexual partners.',
   'lies poorly on purpose.',
   'collects cute rocks.',
   'collects sea shells.',

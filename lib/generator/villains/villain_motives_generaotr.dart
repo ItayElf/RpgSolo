@@ -4,11 +4,15 @@ import 'package:rpgsolo/classes/villains/villain_motives.dart';
 import 'package:rpgsolo/data/villains/villain_motives_data.dart';
 
 class VillainMotivesGenerator {
-  static VillainMotives generate([Random? random]) {
+  static VillainMotives generate(bool isMale, [Random? random]) {
     Random rand = random ?? Random();
-    String goal = villainGoals[rand.nextInt(villainGoals.length)].toLowerCase();
+    String goal = villainGoals[rand.nextInt(villainGoals.length)]
+        .replaceAll("REL", isMale ? "his" : "her")
+        .toLowerCase();
     String motivation =
-        villainMotivation[rand.nextInt(villainMotivation.length)].toLowerCase();
+        villainMotivation[rand.nextInt(villainMotivation.length)]
+            .replaceAll("REL", isMale ? "his" : "her")
+            .toLowerCase();
     String flaw = villainFlaws[rand.nextInt(villainFlaws.length)].toLowerCase();
     String weakness =
         villainWeaknesses[rand.nextInt(villainWeaknesses.length)].toLowerCase();
