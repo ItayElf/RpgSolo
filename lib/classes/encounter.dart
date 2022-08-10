@@ -16,6 +16,17 @@ class Encounter {
     required this.benefit,
   });
 
+  String get titleName {
+    if (description == "") {
+      return "Situation";
+    } else if (encounter.startsWith("a ")) {
+      return encounter.replaceFirst("a ", "");
+    } else if (encounter.startsWith("an ")) {
+      return encounter.replaceFirst("an ", "");
+    }
+    return encounter;
+  }
+
   Encounter copyWith({
     NatureLocationType? locationType,
     String? encounter,

@@ -586,22 +586,22 @@ const monsterEncounterDescription = [
 
 //-----------------------------------Benefit-----------------------------------
 const intelligentEncounterBenefit = [
-  "they have a magical item that can be beneficial for the players",
-  "they are willing to trade with the players",
-  "they have inforamtion that is valuable to the players",
-  "they don't view the players as helpful for them",
-  "they may consider helping the players for the right cost",
-  "they need help from the players",
-  "they have met the players before",
-  "they consider the players a threat"
+  "they have a magical item that can be beneficial for the players.",
+  "they are willing to trade with the players.",
+  "they have inforamtion that is valuable to the players.",
+  "they don't view the players as helpful for them.",
+  "they may consider helping the players for the right cost.",
+  "they need help from the player.s",
+  "they have met the players before.",
+  "they consider the players a threat."
 ];
 const monsterEncounterBenefit = [
-  "they are friendly to the players",
-  "they are hostile to the players",
-  "they are owned by someone",
-  "they were sent by someone to track the players",
-  "they lead the players towards a place",
-  "they mostly ignore the player's existance"
+  "they are friendly to the players.",
+  "they are hostile to the players.",
+  "they are owned by someone.",
+  "they were sent by someone to track the players.",
+  "they lead the players towards a place.",
+  "they mostly ignore the player's existance."
 ];
 
 //-----------------------------------General-----------------------------------
