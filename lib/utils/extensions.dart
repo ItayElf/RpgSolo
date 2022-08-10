@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rpgsolo/classes/villains/villain_action.dart';
+import 'package:rpgsolo/data/nature_location_data.dart';
 import 'package:rpgsolo/data/races.dart';
 import 'package:rpgsolo/data/towns/locations_data.dart';
 import 'package:rpgsolo/data/towns/town_data.dart';
@@ -70,6 +71,12 @@ extension TownTypeExtension on TownType {
 }
 
 extension ActionResultExtension on ActionResult {
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'name': name};
+  }
+}
+
+extension NatureLocationTypeExtension on NatureLocationType {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{'name': name};
   }
