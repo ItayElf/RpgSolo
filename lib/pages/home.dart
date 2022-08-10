@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rpgsolo/components/sidebar.dart';
+import 'package:rpgsolo/pages/generate_pages/generate_encounter.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_location.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_npc.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_town.dart';
@@ -66,6 +67,10 @@ class Home extends StatelessWidget {
                   GeneratorButton(
                     title: "Villain",
                     moveTo: GenerateVillain(),
+                  ),
+                  GeneratorButton(
+                    title: "Encounter",
+                    moveTo: GenerateEncounter(),
                   ),
                 ],
               )
