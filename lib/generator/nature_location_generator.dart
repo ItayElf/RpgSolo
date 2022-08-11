@@ -28,6 +28,8 @@ class NatureLocationGenerator {
     String resource = _generateResource(type, rand);
     List<Encounter> encounters =
         List.generate(2, (index) => EncounterGenerator.generate(type, rand));
+    encounters[0] =
+        EncounterGenerator.generate(type, rand).copyWith(encounter: creature);
     while (encounters[0].description.isEmpty) {
       encounters[0] =
           EncounterGenerator.generate(type, rand).copyWith(encounter: creature);

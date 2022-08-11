@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rpgsolo/components/sidebar.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_encounter.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_location.dart';
+import 'package:rpgsolo/pages/generate_pages/generate_nature_location.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_npc.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_town.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_villain.dart';
@@ -57,7 +58,7 @@ class Home extends StatelessWidget {
                     moveTo: GenerateNpc(),
                   ),
                   GeneratorButton(
-                    title: "Location",
+                    title: "Building",
                     moveTo: GenerateLocation(),
                   ),
                   GeneratorButton(
@@ -71,6 +72,10 @@ class Home extends StatelessWidget {
                   GeneratorButton(
                     title: "Encounter",
                     moveTo: GenerateEncounter(),
+                  ),
+                  GeneratorButton(
+                    title: "Landscape",
+                    moveTo: GenerateNatureLocation(),
                   ),
                 ],
               )

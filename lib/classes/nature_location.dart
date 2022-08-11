@@ -57,7 +57,7 @@ class NatureLocation {
       creature: creature ?? this.creature,
       travelRate: travelRate ?? this.travelRate,
       resource: resource ?? this.resource,
-      encounters: encounter ?? this.encounters,
+      encounters: encounter ?? encounters,
     );
   }
 
