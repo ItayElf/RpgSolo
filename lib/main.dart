@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rpgsolo/generator/god_generator.dart';
 import 'package:rpgsolo/pages/home.dart';
+import 'package:rpgsolo/pages/views/god_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,7 +10,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
         ),
         primarySwatch: Colors.red,
       ),
-      home: const Home(),
+      home: GodView(god: GodGenerator.generate()),
     );
   }
 }

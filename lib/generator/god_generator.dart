@@ -68,7 +68,7 @@ class GodGenerator {
       return null;
     }
     VillainRace race = random.chooseFrom(VillainRace.values);
-    if (alignment.contains("Evil") && race.isNormalRace) {
+    if (!alignment.contains("Evil") && !race.isNormalRace) {
       race = random.chooseFrom(VillainRace.values);
     }
     return race;
