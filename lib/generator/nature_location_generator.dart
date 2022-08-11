@@ -1,8 +1,10 @@
 import 'dart:math';
 
+import 'package:rpgsolo/classes/encounter.dart';
 import 'package:rpgsolo/classes/nature_location.dart';
 import 'package:rpgsolo/data/encounter_data.dart';
 import 'package:rpgsolo/data/nature_location_data.dart';
+import 'package:rpgsolo/generator/encounter_generator.dart';
 import 'package:rpgsolo/generator/npcs/name_generator.dart';
 import 'package:rpgsolo/generator/town_generator.dart';
 
@@ -24,6 +26,12 @@ class NatureLocationGenerator {
     String creature = _generateCreature(type, rand);
     String travelRate = natureTravelRate[rand.nextInt(natureTravelRate.length)];
     String resource = _generateResource(type, rand);
+    List<Encounter> encounters =
+        List.generate(2, (index) => EncounterGenerator.generate(type, rand));
+    while (encounters[0].description.isEmpty) {
+      encounters[0] =
+          EncounterGenerator.generate(type, rand).copyWith(encounter: creature);
+    }
     NatureLocation location = NatureLocation(
         name: name,
         type: type,
@@ -34,7 +42,8 @@ class NatureLocationGenerator {
         size: size,
         creature: creature,
         travelRate: travelRate,
-        resource: resource);
+        resource: resource,
+        encounters: encounters);
     return location;
   }
 

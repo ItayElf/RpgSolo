@@ -7,9 +7,12 @@ import 'package:rpgsolo/data/towns/town_data.dart';
 import 'package:rpgsolo/data/villains/villain_data.dart';
 
 extension StringExtension on String {
-  String toTitleCase() {
+  String toTitleCase([bool onlyFirst = false]) {
     title(s) =>
         s == "" ? "" : "${s[0].toUpperCase()}${s.substring(1).toLowerCase()}";
+    if (onlyFirst) {
+      return title(this);
+    }
     return split(" ").map(title).join(" ");
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rpgsolo/classes/towns/town.dart';
-import 'package:rpgsolo/components/location_tile.dart';
-import 'package:rpgsolo/components/npc_tile.dart';
+import 'package:rpgsolo/components/tiles/location_tile.dart';
+import 'package:rpgsolo/components/tiles/npc_tile.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
 class TownView extends StatelessWidget {

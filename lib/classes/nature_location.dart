@@ -1,6 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
+import 'package:rpgsolo/classes/encounter.dart';
 import 'package:rpgsolo/data/nature_location_data.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
@@ -15,7 +18,7 @@ class NatureLocation {
   final String creature;
   final String travelRate;
   final String resource;
-
+  final List<Encounter> encounters;
   NatureLocation({
     required this.name,
     required this.type,
@@ -27,6 +30,7 @@ class NatureLocation {
     required this.creature,
     required this.travelRate,
     required this.resource,
+    required this.encounters,
   });
 
   NatureLocation copyWith({
@@ -40,6 +44,7 @@ class NatureLocation {
     String? creature,
     String? travelRate,
     String? resource,
+    List<Encounter>? encounter,
   }) {
     return NatureLocation(
       name: name ?? this.name,
@@ -52,6 +57,7 @@ class NatureLocation {
       creature: creature ?? this.creature,
       travelRate: travelRate ?? this.travelRate,
       resource: resource ?? this.resource,
+      encounters: encounter ?? this.encounters,
     );
   }
 
@@ -67,6 +73,7 @@ class NatureLocation {
       'creature': creature,
       'travelRate': travelRate,
       'resource': resource,
+      'encounter': encounters.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -83,6 +90,11 @@ class NatureLocation {
       creature: map['creature'] as String,
       travelRate: map['travelRate'] as String,
       resource: map['resource'] as String,
+      encounters: List<Encounter>.from(
+        (map['encounter'] as List<int>).map<Encounter>(
+          (x) => Encounter.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
     );
   }
 
@@ -93,7 +105,7 @@ class NatureLocation {
 
   @override
   String toString() {
-    return 'NatureLocation(name: $name, type: $type, direction: $direction, knownFor: $knownFor, weather: $weather, madeFrom: $madeFrom, size: $size, creature: $creature, travelRate: $travelRate, resource: $resource)';
+    return 'NatureLocation(name: $name, type: $type, direction: $direction, knownFor: $knownFor, weather: $weather, madeFrom: $madeFrom, size: $size, creature: $creature, travelRate: $travelRate, resource: $resource, encounter: $encounters)';
   }
 
   @override
@@ -109,7 +121,8 @@ class NatureLocation {
         other.size == size &&
         other.creature == creature &&
         other.travelRate == travelRate &&
-        other.resource == resource;
+        other.resource == resource &&
+        listEquals(other.encounters, encounters);
   }
 
   @override
@@ -123,6 +136,7 @@ class NatureLocation {
         size.hashCode ^
         creature.hashCode ^
         travelRate.hashCode ^
-        resource.hashCode;
+        resource.hashCode ^
+        encounters.hashCode;
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rpgsolo/generator/nature_location_generator.dart';
 import 'package:rpgsolo/pages/home.dart';
+import 'package:rpgsolo/pages/views/nature_location_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -44,7 +46,7 @@ class MyApp extends StatelessWidget {
         ),
         primarySwatch: Colors.red,
       ),
-      home: const Home(),
+      home: NatureLocationView(location: NatureLocationGenerator.generate()),
     );
   }
 }

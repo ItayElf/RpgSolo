@@ -148,8 +148,8 @@ const natureLocationMadeFrom = {
 const coastSize = [
   "is one of the largest coasts in the continent",
   "is one of the smallest coasts in the continent",
-  "is long but narrow"
-      "is not small nor large",
+  "is long but narrow",
+  "is not small nor large",
   "is large and wide",
   "is small"
 ];
@@ -204,8 +204,8 @@ const natureLocationSize = {
 
 //-----------------------------------Travel Rate-----------------------------------
 const natureTravelRate = [
-  "never"
-      "sporadically",
+  "never",
+  "sporadically",
   "occasionally",
   "intermittently",
   "frequently",

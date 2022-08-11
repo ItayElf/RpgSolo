@@ -1,28 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:rpgsolo/classes/towns/location.dart';
-import 'package:rpgsolo/components/tiles/npc_tile.dart';
-import 'package:rpgsolo/data/towns/locations_data.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:rpgsolo/classes/nature_location.dart';
+import 'package:rpgsolo/components/tiles/encounter_tile.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
-class LocationView extends StatelessWidget {
-  const LocationView({super.key, required this.location});
+class NatureLocationView extends StatelessWidget {
+  const NatureLocationView({super.key, required this.location});
 
-  final Location location;
-
-  String getDescription() {
-    if (location.type == LocationType.monument ||
-        location.type == LocationType.tower) {
-      return location.description;
-    }
-    return "The ${location.type.printedName} \"${location.name.toTitleCase()}\" is located ${location.location}.\n\n ${location.name.toTitleCase()} ${location.description}";
-  }
+  final NatureLocation location;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            "${location.name.toTitleCase()} (${location.type.printedName.toTitleCase()})"),
+            "${location.name.toTitleCase()} (${location.type.name.toTitleCase()})"),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -65,7 +58,11 @@ class LocationView extends StatelessWidget {
                 height: 16,
               ),
               SelectableText(
-                getDescription(),
+                "${location.name.toTitleCase()} is a ${location.type.name} located in the ${location.direction} of the continent. "
+                "This ${location.type.name} is best known for ${location.knownFor}. "
+                "${location.name.toTitleCase()} ${location.weather}, ${location.madeFrom} and ${location.size}. "
+                "${location.name.toTitleCase()} is inhabited by ${location.creature} and is ${location.travelRate} traversed by travelers. "
+                "A vlueable resource that can be found in ${location.name.toTitleCase()} is ${location.resource}.",
                 style: Theme.of(context).textTheme.bodyText1,
                 textAlign: TextAlign.justify,
               ),
@@ -80,7 +77,7 @@ class LocationView extends StatelessWidget {
                 height: 8,
               ),
               Text(
-                location.type == LocationType.monument ? "Artist:" : "Owner:",
+                "Encounters:",
                 style: Theme.of(context)
                     .textTheme
                     .headline6
@@ -89,7 +86,16 @@ class LocationView extends StatelessWidget {
               const SizedBox(
                 height: 8,
               ),
-              NpcTile(npc: location.owner),
+              ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: location.encounters.length,
+                itemBuilder: ((context, i) =>
+                    EncounterTile(encounter: location.encounters[i])),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
             ],
           ),
         ),
