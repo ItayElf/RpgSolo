@@ -54,7 +54,7 @@ class EncounterView extends StatelessWidget {
               height: 16,
             ),
             SelectableText(
-              "The players encounter ${encounter.encounter}${encounter.description != "" ? " ${encounter.description}" : ""} in the ${encounter.locationType.name}. ${encounter.benefit}",
+              "The players encounter ${encounter.encounter}${encounter.description != "" ? " ${encounter.description}" : ""} in the ${encounter.locationType.name}. ${encounter.benefit.toTitleCase()}",
               style: Theme.of(context).textTheme.bodyText1?.copyWith(
                   fontSize: Theme.of(context).textTheme.headline6?.fontSize),
               textAlign: TextAlign.justify,
