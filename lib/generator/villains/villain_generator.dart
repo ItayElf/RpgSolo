@@ -18,16 +18,13 @@ import 'package:rpgsolo/utils/extensions.dart';
 class VillainGenerator {
   static Villain generate([VillainPower? villainPower, Random? random]) {
     Random rand = random ?? Random();
-    VillainPower power = villainPower ??
-        VillainPower.values[rand.nextInt(VillainPower.values.length)];
-    VillainRace race =
-        VillainRace.values[rand.nextInt(VillainRace.values.length)];
+    VillainPower power = villainPower ?? rand.chooseFrom(VillainPower.values);
+    VillainRace race = rand.chooseFrom(VillainRace.values);
     int age = _generateAge(race, rand);
     bool isMale = rand.nextBool();
-    String occupation = villainClasses[rand.nextInt(villainClasses.length)];
+    String occupation = rand.chooseFrom(villainClasses);
     String orientation = _generateOrientation(race, rand);
-    String relationshipStatus =
-        relationshipStatuses[rand.nextInt(relationshipStatuses.length)];
+    String relationshipStatus = rand.chooseFrom(relationshipStatuses);
     String name = VillainRaceNameGenerator.generate(isMale, race, rand);
     Physical physical = VillainPhysicalGenerator.generate(race, isMale, rand);
     Personality personality =

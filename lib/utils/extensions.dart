@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:rpgsolo/classes/villains/villain_action.dart';
 import 'package:rpgsolo/data/nature_location_data.dart';
@@ -14,6 +16,12 @@ extension StringExtension on String {
       return title(this);
     }
     return split(" ").map(title).join(" ");
+  }
+}
+
+extension RandomExtension on Random {
+  T chooseFrom<T>(List<T> list) {
+    return list[nextInt(list.length)];
   }
 }
 

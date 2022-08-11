@@ -8,7 +8,7 @@ import 'package:rpgsolo/utils/extensions.dart';
 class NameGenerator {
   static String generate(bool isMale, [Race? race, Random? random]) {
     Random rand = random ?? Random();
-    Race r = race ?? Race.values[rand.nextInt(Race.values.length)];
+    Race r = race ?? rand.chooseFrom(Race.values);
     Map<Race, String Function(bool, Random)> map = {
       Race.dragonborn: _generateDragonbornName,
       Race.dwarf: _generateDwarfName,
@@ -255,8 +255,7 @@ class NameGenerator {
 class VillainRaceNameGenerator {
   static String generate(bool isMale, [VillainRace? race, Random? random]) {
     Random rand = random ?? Random();
-    VillainRace r =
-        race ?? VillainRace.values[rand.nextInt(VillainRace.values.length)];
+    VillainRace r = race ?? rand.chooseFrom(VillainRace.values);
     if (r.isNormalRace) {
       return NameGenerator.generate(
         isMale,

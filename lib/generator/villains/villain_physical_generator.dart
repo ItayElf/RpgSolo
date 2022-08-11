@@ -14,7 +14,7 @@ class VillainPhysicalGenerator {
       return PhysicalGenerator.generate(race.asRace, isMale);
     }
     String hair = _generateHair(race, isMale, rand);
-    String eyes = "${eyeColor[rand.nextInt(eyeColor.length)]} eyes";
+    String eyes = "${rand.chooseFrom(eyeColor)} eyes";
     String skin = _generateSkin(race, rand);
     int height = _generateHeight(race, rand);
     String body = _generateBody(race, rand);
@@ -36,25 +36,24 @@ class VillainPhysicalGenerator {
 
   static String _generateHair(VillainRace race, bool isMale, Random random) {
     if (race == VillainRace.yuanTi) {
-      return "${dragonHair[random.nextInt(dragonHair.length)]} head";
+      return "${random.chooseFrom(dragonHair)} head";
     }
     if (race != VillainRace.drow &&
         isMale &&
         random.nextInt(50) < (race == VillainRace.duergar ? 35 : 8)) {
       return "bald head";
     }
-    String length = hairLength[random.nextInt(hairLength.length)];
-    String type = hairType[random.nextInt(hairType.length)];
-    String color = race == VillainRace.duergar
-        ? "gray"
-        : hairColor[random.nextInt(hairColor.length)];
+    String length = random.chooseFrom(hairLength);
+    String type = random.chooseFrom(hairType);
+    String color =
+        race == VillainRace.duergar ? "gray" : random.chooseFrom(hairColor);
     return "$length, $type, $color hair";
   }
 
   static String _generateSkin(VillainRace race, Random random) {
     late List<String> pool;
     if (race == VillainRace.yuanTi) {
-      return "${scaleTexture[random.nextInt(scaleTexture.length)]} ${scaleColor[random.nextInt(scaleColor.length)]} scales";
+      return "${random.chooseFrom(scaleTexture)} ${random.chooseFrom(scaleColor)} scales";
     } else if (race == VillainRace.orc) {
       pool = orcSkin;
     } else if (race == VillainRace.drow) {
@@ -68,7 +67,7 @@ class VillainPhysicalGenerator {
     } else {
       pool = humanSkin;
     }
-    return "${pool[random.nextInt(pool.length)]} skin";
+    return "${random.chooseFrom(pool)} skin";
   }
 
   static int _generateHeight(VillainRace race, Random random) {
@@ -87,7 +86,7 @@ class VillainPhysicalGenerator {
     } else {
       pool = regularWeight;
     }
-    return "${pool[random.nextInt(pool.length)]} build";
+    return "${random.chooseFrom(pool)} build";
   }
 
   static String _generateFace(VillainRace race, bool isMale, Random random) {
@@ -95,7 +94,7 @@ class VillainPhysicalGenerator {
     if (race != VillainRace.drow) {
       pool += regularLooking;
     }
-    String face = "${pool[random.nextInt(pool.length)]} face";
+    String face = "${random.chooseFrom(pool)} face";
     String beard = _generateBeard(race, isMale, random);
     if (beard != "") {
       face = [face, beard].join(" with a ");
@@ -116,17 +115,15 @@ class VillainPhysicalGenerator {
     } else {
       pool = beardLength;
     }
-    return "${pool[random.nextInt(pool.length)]} ${beardShape[random.nextInt(beardShape.length)]}";
+    return "${random.chooseFrom(pool)} ${random.chooseFrom(beardShape)}";
   }
 
   static List<String> _generateSpecial(VillainRace race, Random random) {
-    List<String> res = [
-      specialPhysical[random.nextInt(specialPhysical.length)]
-    ];
+    List<String> res = [random.chooseFrom(specialPhysical)];
     if (random.nextInt(6) == 0) {
-      String val = specialPhysical[random.nextInt(specialPhysical.length)];
+      String val = random.chooseFrom(specialPhysical);
       while (res.contains(val)) {
-        val = specialPhysical[random.nextInt(specialPhysical.length)];
+        val = random.chooseFrom(specialPhysical);
       }
       res.add(val);
     }

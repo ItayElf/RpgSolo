@@ -11,9 +11,8 @@ class LocationGenerator {
   static Location generate(
       [LocationType? locationType, Race? mainRace, Random? random]) {
     Random rand = random ?? Random();
-    LocationType type = locationType ??
-        LocationType.values[rand.nextInt(LocationType.values.length)];
-    Race race = mainRace ?? Race.values[rand.nextInt(Race.values.length)];
+    LocationType type = locationType ?? rand.chooseFrom(LocationType.values);
+    Race race = mainRace ?? rand.chooseFrom(Race.values);
 
     Npc owner = _generateLocationOwner(type, race, rand);
     String name =
@@ -53,9 +52,8 @@ class LocationGenerator {
 
   static Npc _generateLocationOwner(
       LocationType type, Race mainRace, Random random) {
-    Race race = random.nextInt(100) < 65
-        ? mainRace
-        : Race.values[random.nextInt(Race.values.length)];
+    Race race =
+        random.nextInt(100) < 65 ? mainRace : random.chooseFrom(Race.values);
     Npc npc = NpcGenerator.generate(race, random)
         .copyWith(occupation: ownerOccupation[type]);
     return npc;
@@ -64,11 +62,11 @@ class LocationGenerator {
   static String _generateLocationName(
       LocationType type, String ownerName, Random random) {
     if (type == LocationType.smithy) {
-      return smithyNames[random.nextInt(smithyNames.length)];
+      return random.chooseFrom(smithyNames);
     } else if (type == LocationType.library) {
-      return "${libraryNames[random.nextInt(libraryNames.length)]} Library";
+      return "${random.chooseFrom(libraryNames)} Library";
     } else if (type == LocationType.tower) {
-      return "the ${towerNames[random.nextInt(towerNames.length)]}${random.nextBool() ? " Tower" : " Spire"}";
+      return "the ${random.chooseFrom(towerNames)}${random.nextBool() ? " Tower" : " Spire"}";
     } else if (type == LocationType.tavern) {
       return "${tavernNames1[random.nextInt(tavernNames1.length)]} ${tavernNames2[random.nextInt(tavernNames2.length)]}";
     } else if (type == LocationType.temple) {
@@ -88,16 +86,16 @@ class LocationGenerator {
   }
 
   static String _generateLocationLocation(LocationType type, Random random) {
-    String located = locationZone[random.nextInt(locationZone.length)];
+    String located = random.chooseFrom(locationZone);
     if (type == LocationType.monument) {
       return "in the $located";
     }
-    String street = streetOutside[random.nextInt(streetOutside.length)];
+    String street = random.chooseFrom(streetOutside);
     String res = "in the $located. The street outside $street";
     if (random.nextBool()) {
-      String val = streetOutside[random.nextInt(streetOutside.length)];
+      String val = random.chooseFrom(streetOutside);
       while (val == street) {
-        val = streetOutside[random.nextInt(streetOutside.length)];
+        val = random.chooseFrom(streetOutside);
       }
       res = "$res and $val";
     }
@@ -130,35 +128,35 @@ class LocationGenerator {
       LocationType type, String name, Npc owner, Random random) {
     int floors = random.nextInt(6 - 2) + 2;
     String outside =
-        "${name.toTitleCase()} is a ${towerSize[floors - 2]} tower made out of ${towerStone[random.nextInt(towerStone.length)]} and is ${towerAesthetic[random.nextInt(towerAesthetic.length)]}.";
+        "${name.toTitleCase()} is a ${towerSize[floors - 2]} tower made out of ${random.chooseFrom(towerStone)} and is ${random.chooseFrom(towerAesthetic)}.";
     String built =
-        "The tower was built ${monumentDesc1[random.nextInt(monumentDesc1.length)]} ago and is currently home to ${owner.name.toTitleCase()}, a wizard who is concerned with ${towerConcern[random.nextInt(towerConcern.length)]}.";
+        "The tower was built ${monumentDesc1[random.nextInt(monumentDesc1.length)]} ago and is currently home to ${owner.name.toTitleCase()}, a wizard who is concerned with ${random.chooseFrom(towerConcern)}.";
     String levels = "The tower contains $floors levels,";
     if (floors == 2) {
       levels += " the wizard's private chambers and a library.";
     } else if (floors == 3) {
       levels +=
-          " the wizard's private chambers, a library and ${towerLevels[random.nextInt(towerLevels.length)]}.";
+          " the wizard's private chambers, a library and ${random.chooseFrom(towerLevels)}.";
     } else if (floors == 4) {
-      String level1 = towerLevels[random.nextInt(towerLevels.length)];
-      String level2 = towerLevels[random.nextInt(towerLevels.length)];
+      String level1 = random.chooseFrom(towerLevels);
+      String level2 = random.chooseFrom(towerLevels);
       while (level2 == level1) {
-        level2 = towerLevels[random.nextInt(towerLevels.length)];
+        level2 = random.chooseFrom(towerLevels);
       }
       levels +=
           " the wizard's private chambers, a library, $level1 and $level2.";
     } else if (floors == 5) {
       List<String> pool = List.from(towerLevels);
-      String level1 = pool[random.nextInt(pool.length)];
+      String level1 = random.chooseFrom(pool);
       pool.remove(level1);
-      String level2 = pool[random.nextInt(pool.length)];
+      String level2 = random.chooseFrom(pool);
       pool.remove(level2);
-      String level3 = pool[random.nextInt(pool.length)];
+      String level3 = random.chooseFrom(pool);
       levels +=
           " the wizard's private chambers, a library, $level1, $level2 and $level3.";
     }
     levels +=
-        " The tower is protected by ${towerProtection[random.nextInt(towerProtection.length)]}";
+        " The tower is protected by ${random.chooseFrom(towerProtection)}";
     return "$outside $built $levels.";
   }
 
@@ -179,11 +177,9 @@ class LocationGenerator {
         filler =
             buildingSecondFloor2[random.nextInt(buildingSecondFloor2.length)];
       } else if (rand == 1) {
-        filler =
-            buildingSecondFloor2b[random.nextInt(buildingSecondFloor2b.length)];
+        filler = random.chooseFrom(buildingSecondFloor2b);
       } else {
-        filler =
-            buildingSecondFloor2c[random.nextInt(buildingSecondFloor2c.length)];
+        filler = random.chooseFrom(buildingSecondFloor2c);
       }
       secondFloor =
           "The second floor is ${buildingSecondFloor1[rand]}, $filler. This floor ${buildingSecondFloor3[random.nextInt(buildingSecondFloor3.length)]} the floor below.";

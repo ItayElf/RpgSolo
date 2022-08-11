@@ -3,12 +3,13 @@ import 'dart:math';
 import 'package:rpgsolo/classes/npcs/physical.dart';
 import 'package:rpgsolo/data/npcs/physical_data.dart';
 import 'package:rpgsolo/data/races.dart';
+import 'package:rpgsolo/utils/extensions.dart';
 
 class PhysicalGenerator {
   static Physical generate(Race race, bool isMale, [Random? random]) {
     Random rand = random ?? Random();
     String hair = _generateHair(race, isMale, rand);
-    String eyes = "${eyeColor[rand.nextInt(eyeColor.length)]} eyes";
+    String eyes = "${rand.chooseFrom(eyeColor)} eyes";
     String skin = _generateSkin(race, rand);
     int height = _generateHeight(race, rand);
     String body = _generateBody(race, rand);
@@ -30,23 +31,23 @@ class PhysicalGenerator {
 
   static String _generateHair(Race race, bool isMale, Random random) {
     if (race == Race.dragonborn) {
-      return "${dragonHair[random.nextInt(dragonHair.length)]} head";
+      return "${random.chooseFrom(dragonHair)} head";
     } else if (race == Race.goliath) {
-      return goliathHair[random.nextInt(goliathHair.length)];
+      return random.chooseFrom(goliathHair);
     }
     if (race != Race.elf && isMale && random.nextInt(50) < 8) {
       return "bald head";
     }
-    String length = hairLength[random.nextInt(hairLength.length)];
-    String type = hairType[random.nextInt(hairType.length)];
-    String color = hairColor[random.nextInt(hairColor.length)];
+    String length = random.chooseFrom(hairLength);
+    String type = random.chooseFrom(hairType);
+    String color = random.chooseFrom(hairColor);
     return "$length, $type, $color hair";
   }
 
   static String _generateSkin(Race race, Random random) {
     late List<String> pool;
     if (race == Race.dragonborn) {
-      return "${scaleTexture[random.nextInt(scaleTexture.length)]} ${scaleColor[random.nextInt(scaleColor.length)]} scales";
+      return "${random.chooseFrom(scaleTexture)} ${random.chooseFrom(scaleColor)} scales";
     }
     if (race == Race.halfElf) {
       pool = humanSkin + elfSkin;
@@ -63,7 +64,7 @@ class PhysicalGenerator {
     } else {
       pool = humanSkin;
     }
-    return "${pool[random.nextInt(pool.length)]} skin";
+    return "${random.chooseFrom(pool)} skin";
   }
 
   static int _generateHeight(Race race, Random random) {
@@ -86,7 +87,7 @@ class PhysicalGenerator {
     } else {
       pool = regularWeight;
     }
-    return "${pool[random.nextInt(pool.length)]} build";
+    return "${random.chooseFrom(pool)} build";
   }
 
   static String _generateFace(Race race, Random random, bool isMale) {
@@ -94,7 +95,7 @@ class PhysicalGenerator {
     if (race != Race.elf) {
       pool += regularLooking;
     }
-    String face = "${pool[random.nextInt(pool.length)]} face";
+    String face = "${random.chooseFrom(pool)} face";
     String beard = _generateBeard(race, random, isMale);
     if (beard != "") {
       face = [face, beard].join(" with a ");
@@ -115,17 +116,15 @@ class PhysicalGenerator {
     } else {
       pool = beardLength;
     }
-    return "${pool[random.nextInt(pool.length)]} ${beardShape[random.nextInt(beardShape.length)]}";
+    return "${random.chooseFrom(pool)} ${random.chooseFrom(beardShape)}";
   }
 
   static List<String> _generateSpecial(Race race, Random random) {
-    List<String> res = [
-      specialPhysical[random.nextInt(specialPhysical.length)]
-    ];
+    List<String> res = [random.chooseFrom(specialPhysical)];
     if (random.nextInt(6) == 0) {
-      String val = specialPhysical[random.nextInt(specialPhysical.length)];
+      String val = random.chooseFrom(specialPhysical);
       while (res.contains(val)) {
-        val = specialPhysical[random.nextInt(specialPhysical.length)];
+        val = random.chooseFrom(specialPhysical);
       }
       res.add(val);
     }

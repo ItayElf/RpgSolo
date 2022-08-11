@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:rpgsolo/classes/npcs/personality.dart';
 import 'package:rpgsolo/data/npcs/personality_data.dart';
 import 'package:rpgsolo/data/races.dart';
+import 'package:rpgsolo/utils/extensions.dart';
 
 class PersonalityGenerator {
   static Personality generate(Race race, [Random? random]) {
@@ -49,7 +50,7 @@ class PersonalityGenerator {
     if (maxMoral == moralValues[0]) {
       res += " Good";
     } else if (maxMoral == moralValues[1]) {
-      res += " Natural";
+      res += " Neutral";
     } else {
       res += " Evil";
     }
@@ -57,7 +58,7 @@ class PersonalityGenerator {
   }
 
   static String _generateTrait(Race race, Random random) {
-    return traits[random.nextInt(traits.length)];
+    return random.chooseFrom(traits);
   }
 
   static String _generateQuirk(Race race, Random random) {
@@ -75,6 +76,6 @@ class PersonalityGenerator {
     } else if (race == Race.halfling) {
       pool += halflingQuirks;
     }
-    return pool[random.nextInt(pool.length)];
+    return random.chooseFrom(pool);
   }
 }

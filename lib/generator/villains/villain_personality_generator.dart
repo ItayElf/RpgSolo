@@ -66,7 +66,7 @@ class VillainPersonalityGenerator {
   }
 
   static String _generateTrait(VillainRace race, Random random) {
-    return traits[random.nextInt(traits.length)];
+    return random.chooseFrom(traits);
   }
 
   static String _generateQuirk(VillainRace race, Random random) {
@@ -76,6 +76,6 @@ class VillainPersonalityGenerator {
     } else if (race == VillainRace.drow || race == VillainRace.halfDrow) {
       pool += drowQuirks;
     }
-    return pool[random.nextInt(pool.length)];
+    return random.chooseFrom(pool);
   }
 }

@@ -14,11 +14,10 @@ import 'package:rpgsolo/utils/extensions.dart';
 class TownGenerator {
   static Town generate([TownType? townType, Random? random]) {
     Random rand = random ?? Random();
-    TownType type =
-        townType ?? TownType.values[rand.nextInt(TownType.values.length)];
-    Race mainRace = Race.values[rand.nextInt(Race.values.length)];
+    TownType type = townType ?? rand.chooseFrom(TownType.values);
+    Race mainRace = rand.chooseFrom(Race.values);
     List<Location> locations = _generateLocations(type, mainRace, rand);
-    String occupation = townOccupations[rand.nextInt(townOccupations.length)];
+    String occupation = rand.chooseFrom(townOccupations);
     List<Npc> npcs = _generateNpcs(type, mainRace, occupation, rand);
     int population = _generatePopulation(type, rand);
     String name = _generateTownName(type, mainRace, rand);
@@ -82,14 +81,14 @@ class TownGenerator {
     String looks =
         "${name.toTitleCase()} is ${townLook1[random.nextInt(townLook1.length)]} ${townType.name}. "
         "It is home to approximately $population people from different races, with the majority being ${mainRace.pluralName}. Most of the residents of ${name.toTitleCase()} are ${occupation}s. "
-        "${name.toTitleCase()} ${townPlace[random.nextInt(townPlace.length)]}. Many buildings in the ${townType.name} have ${townLook2[random.nextInt(townLook2.length)]} rooftops, ${townLook3[random.nextInt(townLook3.length)]} walls and ${townLook4[random.nextInt(townLook4.length)]}, giving it ${townLook5[random.nextInt(townLook5.length)]} atmosphere. ";
-    String special1 = townSpecialty[random.nextInt(townSpecialty.length)];
-    String special2 = townSpecialty[random.nextInt(townSpecialty.length)];
+        "${name.toTitleCase()} ${random.chooseFrom(townPlace)}. Many buildings in the ${townType.name} have ${townLook2[random.nextInt(townLook2.length)]} rooftops, ${townLook3[random.nextInt(townLook3.length)]} walls and ${townLook4[random.nextInt(townLook4.length)]}, giving it ${townLook5[random.nextInt(townLook5.length)]} atmosphere. ";
+    String special1 = random.chooseFrom(townSpecialty);
+    String special2 = random.chooseFrom(townSpecialty);
     while (special2 == special1) {
-      special2 = townSpecialty[random.nextInt(townSpecialty.length)];
+      special2 = random.chooseFrom(townSpecialty);
     }
     String special =
-        "${name.toTitleCase()} is known for $special1, in addition to $special2. ${townRaceRelationship[random.nextInt(townRaceRelationship.length)].replaceAll("RACE", mainRace.pluralName).replaceAll("TYPE", townType.name)}.";
+        "${name.toTitleCase()} is known for $special1, in addition to $special2. ${random.chooseFrom(townRaceRelationship).replaceAll("RACE", mainRace.pluralName).replaceAll("TYPE", townType.name)}.";
     return "$looks $special";
   }
 
@@ -120,9 +119,9 @@ class TownGenerator {
     List<String> res = [];
     late String side;
     for (int _ in List.generate(townNpcs[townType] ?? 0, (i) => i)) {
-      side = townSidequests[random.nextInt(townSidequests.length)];
+      side = random.chooseFrom(townSidequests);
       while (res.contains(side)) {
-        side = townSidequests[random.nextInt(townSidequests.length)];
+        side = random.chooseFrom(townSidequests);
       }
       res.add(side);
     }
