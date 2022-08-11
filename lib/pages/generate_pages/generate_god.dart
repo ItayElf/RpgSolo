@@ -1,29 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:rpgsolo/classes/encounter.dart';
-import 'package:rpgsolo/data/nature_location_data.dart';
-import 'package:rpgsolo/generator/encounter_generator.dart';
-import 'package:rpgsolo/pages/views/encounter_view.dart';
+import 'package:rpgsolo/classes/god.dart';
+import 'package:rpgsolo/generator/god_generator.dart';
+import 'package:rpgsolo/pages/views/god_view.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
-class GenerateEncounter extends StatelessWidget {
-  const GenerateEncounter({super.key});
+class GenerateGod extends StatelessWidget {
+  const GenerateGod({super.key});
 
-  void onClick(BuildContext context, NatureLocationType? type) {
-    Encounter encounter = EncounterGenerator.generate(type);
+  void onClick(BuildContext context, String? alignment) {
+    God god = GodGenerator.generate(alignment);
     Navigator.push(
       context,
       SlideRoute(
-        builder: (context) => EncounterView(encounter: encounter),
+        builder: (context) => GodView(god: god),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final options = [null, ...NatureLocationType.values];
+    final options = [
+      null,
+      "Lawful Good",
+      "True Good",
+      "Chaotic Good",
+      "Lawful Neutral",
+      "True Neutral",
+      "Chaotic Neutral",
+      "Lawful Evil",
+      "True Evil",
+      "Chaotic Evil"
+    ];
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Encounter Generator"),
+        title: const Text("God Generator"),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -33,13 +43,10 @@ class GenerateEncounter extends StatelessWidget {
               height: 16,
             ),
             Center(
-              child: FittedBox(
-                fit: BoxFit.fitWidth,
-                child: Text(
-                  "Choose an Encounter Location:",
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline5,
-                ),
+              child: Text(
+                "Choose an Alignment:",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline5,
               ),
             ),
             const SizedBox(
@@ -56,9 +63,7 @@ class GenerateEncounter extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Text(
-                      options[i] == null
-                          ? "Random"
-                          : options[i]!.name.toTitleCase(),
+                      options[i] == null ? "Random" : options[i]!.toTitleCase(),
                       style: Theme.of(context).textTheme.headline6?.copyWith(
                             color: Colors.white,
                           ),

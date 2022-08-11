@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rpgsolo/components/sidebar.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_encounter.dart';
+import 'package:rpgsolo/pages/generate_pages/generate_god.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_location.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_nature_location.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_npc.dart';
@@ -76,6 +77,10 @@ class Home extends StatelessWidget {
                   GeneratorButton(
                     title: "Landscape",
                     moveTo: GenerateNatureLocation(),
+                  ),
+                  GeneratorButton(
+                    title: "God",
+                    moveTo: GenerateGod(),
                   ),
                 ],
               )

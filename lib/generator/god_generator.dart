@@ -10,17 +10,17 @@ import 'package:rpgsolo/utils/extensions.dart';
 class GodGenerator {
   static God generate([String? alignment, Random? random]) {
     Random rand = random ?? Random();
-    String alignment = _generateAlignment(rand);
+    String align = alignment ?? _generateAlignment(rand);
     bool isMale = rand.nextBool();
-    String trait1 = _generateTrait(alignment, rand);
+    String trait1 = _generateTrait(align, rand);
     String? trait2;
     if (rand.nextBool()) {
-      trait2 = _generateTrait(alignment, rand);
+      trait2 = _generateTrait(align, rand);
       while (trait2 == trait1) {
-        trait2 = _generateTrait(alignment, rand);
+        trait2 = _generateTrait(align, rand);
       }
     }
-    VillainRace? race = _generateRace(alignment, rand);
+    VillainRace? race = _generateRace(align, rand);
     String depiction = _generateDepiction(race, rand);
     String worshippers = rand.chooseFrom(godWorshippers);
     String occupation = rand.chooseFrom(occupations);
@@ -34,7 +34,7 @@ class GodGenerator {
         isMale: isMale,
         trait1: trait1,
         trait2: trait2,
-        alignment: alignment,
+        alignment: align,
         depiction: depiction,
         race: race,
         worshippers: worshippers,

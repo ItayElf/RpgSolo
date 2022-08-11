@@ -23,7 +23,7 @@ class GenerateNatureLocation extends StatelessWidget {
     final options = [null, ...NatureLocationType.values];
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Location Generator"),
+        title: const Text("Landscape Generator"),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -34,7 +34,7 @@ class GenerateNatureLocation extends StatelessWidget {
             ),
             Center(
               child: Text(
-                "Choose a Location Type:",
+                "Choose a Landscape Type:",
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline5,
               ),
