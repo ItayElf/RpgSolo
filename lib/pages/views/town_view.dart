@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rpgsolo/classes/towns/town.dart';
+import 'package:rpgsolo/components/expandable_paragraph.dart';
 import 'package:rpgsolo/components/tiles/location_tile.dart';
 import 'package:rpgsolo/components/tiles/npc_tile.dart';
 import 'package:rpgsolo/utils/extensions.dart';
@@ -46,20 +47,19 @@ class TownView extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              Text(
-                "Description:",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              SelectableText(
-                town.description,
-                style: Theme.of(context).textTheme.bodyText1,
-                textAlign: TextAlign.justify,
+              ExpandableParagraph(
+                title: Text(
+                  "Description:",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                child: SelectableText(
+                  town.description,
+                  style: Theme.of(context).textTheme.bodyText1,
+                  textAlign: TextAlign.justify,
+                ),
               ),
               const SizedBox(
                 height: 8,
@@ -71,36 +71,35 @@ class TownView extends StatelessWidget {
               const SizedBox(
                 height: 8,
               ),
-              Text(
-                "Sidequests:",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              ListView.separated(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: town.sidequests.length,
-                itemBuilder: (context, i) => Row(
-                  children: [
-                    Text(
-                      "\u2022 ",
-                      style: Theme.of(context).textTheme.headline5,
-                    ),
-                    Flexible(
-                      child: SelectableText(
-                        town.sidequests[i],
-                        style: Theme.of(context).textTheme.bodyText1,
+              ExpandableParagraph(
+                title: Text(
+                  "Sidequests:",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                child: ListView.separated(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: town.sidequests.length,
+                  itemBuilder: (context, i) => Row(
+                    children: [
+                      Text(
+                        "\u2022 ",
+                        style: Theme.of(context).textTheme.headline5,
                       ),
-                    )
-                  ],
-                ),
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 8,
+                      Flexible(
+                        child: SelectableText(
+                          town.sidequests[i],
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                      )
+                    ],
+                  ),
+                  separatorBuilder: (context, index) => const SizedBox(
+                    height: 8,
+                  ),
                 ),
               ),
               const SizedBox(
@@ -113,22 +112,21 @@ class TownView extends StatelessWidget {
               const SizedBox(
                 height: 8,
               ),
-              Text(
-                "Locations:",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: town.locations.length,
-                itemBuilder: ((context, i) =>
-                    LocationTile(location: town.locations[i])),
+              ExpandableParagraph(
+                title: Text(
+                  "Locations:",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: town.locations.length,
+                  itemBuilder: ((context, i) =>
+                      LocationTile(location: town.locations[i])),
+                ),
               ),
               const SizedBox(
                 height: 8,
@@ -140,21 +138,20 @@ class TownView extends StatelessWidget {
               const SizedBox(
                 height: 8,
               ),
-              Text(
-                "Npcs:",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: town.npcs.length,
-                itemBuilder: ((context, i) => NpcTile(npc: town.npcs[i])),
+              ExpandableParagraph(
+                title: Text(
+                  "Npcs:",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: town.npcs.length,
+                  itemBuilder: ((context, i) => NpcTile(npc: town.npcs[i])),
+                ),
               ),
               const SizedBox(
                 height: 8,

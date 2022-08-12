@@ -213,7 +213,7 @@ const natureTravelRate = [
 ];
 
 //-----------------------------------Resources-----------------------------------
-const coastResources = ["fish", "pearls", "salt", ""];
+const coastResources = ["fish", "pearls", "salt"];
 const desertResources = ["glass", "gold", "silver", "gems", "dyes"];
 const forestResources = ["woods", "herbs", "fruits", "furs", "meat"];
 const mountainResources = ["obsedian", "gold", "copper", "gems", "diamonds"];
