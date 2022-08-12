@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:rpgsolo/classes/towns/goods.dart';
 import 'package:rpgsolo/classes/towns/location.dart';
+import 'package:rpgsolo/components/expandable_paragraph.dart';
 import 'package:rpgsolo/components/tiles/npc_tile.dart';
 import 'package:rpgsolo/data/towns/locations_data.dart';
 import 'package:rpgsolo/utils/extensions.dart';
@@ -54,20 +56,19 @@ class LocationView extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              Text(
-                "Description:",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              SelectableText(
-                getDescription(),
-                style: Theme.of(context).textTheme.bodyText1,
-                textAlign: TextAlign.justify,
+              ExpandableParagraph(
+                title: Text(
+                  "Description:",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                child: SelectableText(
+                  getDescription(),
+                  style: Theme.of(context).textTheme.bodyText1,
+                  textAlign: TextAlign.justify,
+                ),
               ),
               const SizedBox(
                 height: 8,
@@ -79,21 +80,91 @@ class LocationView extends StatelessWidget {
               const SizedBox(
                 height: 8,
               ),
-              Text(
-                location.type == LocationType.monument ? "Artist:" : "Owner:",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6
-                    ?.copyWith(fontWeight: FontWeight.bold),
+              location.goods.isNotEmpty
+                  ? ExpandableParagraph(
+                      title: Text(
+                        "Goods:",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6
+                            ?.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      child: ListView.separated(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: location.goods.length,
+                        itemBuilder: (context, i) =>
+                            GoodsTile(goods: location.goods[i]),
+                        separatorBuilder: (context, index) => const SizedBox(
+                          height: 8,
+                        ),
+                      ),
+                    )
+                  : Container(),
+              SizedBox(
+                height: location.goods.isNotEmpty ? 8 : 0,
               ),
+              location.goods.isNotEmpty
+                  ? Divider(
+                      color: Theme.of(context).primaryColorLight,
+                      thickness: 2,
+                    )
+                  : Container(),
               const SizedBox(
                 height: 8,
               ),
-              NpcTile(npc: location.owner),
+              ExpandableParagraph(
+                title: Text(
+                  location.type == LocationType.monument ? "Artist:" : "Owner:",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                child: NpcTile(npc: location.owner),
+              )
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class GoodsTile extends StatelessWidget {
+  const GoodsTile({super.key, required this.goods});
+
+  final Goods goods;
+
+  @override
+  Widget build(BuildContext context) {
+    TextStyle style = Theme.of(context).textTheme.subtitle1!;
+    if (goods.description != null) {
+      style = style.copyWith(fontWeight: FontWeight.bold);
+    }
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "\u2022",
+          style: Theme.of(context).textTheme.headline6,
+        ),
+        Flexible(
+          child: SelectableText.rich(
+            TextSpan(
+              text: "${goods.name.toTitleCase()} (${goods.price})",
+              style: style,
+              children: [
+                TextSpan(
+                    text: goods.description != null
+                        ? "\n${goods.description!.toTitleCase(true)}"
+                        : "",
+                    style: Theme.of(context).textTheme.bodyText1)
+              ],
+            ),
+          ),
+        )
+      ],
     );
   }
 }

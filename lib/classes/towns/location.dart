@@ -1,7 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 import 'package:rpgsolo/classes/npcs/npc.dart';
+import 'package:rpgsolo/classes/towns/goods.dart';
 import 'package:rpgsolo/data/towns/locations_data.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
@@ -11,12 +14,14 @@ class Location {
   final String location;
   final String description;
   final LocationType type;
+  final List<Goods> goods;
   Location({
     required this.name,
     required this.owner,
     required this.location,
     required this.description,
     required this.type,
+    required this.goods,
   });
 
   Location copyWith({
@@ -25,6 +30,7 @@ class Location {
     String? location,
     String? description,
     LocationType? type,
+    List<Goods>? goods,
   }) {
     return Location(
       name: name ?? this.name,
@@ -32,6 +38,7 @@ class Location {
       location: location ?? this.location,
       description: description ?? this.description,
       type: type ?? this.type,
+      goods: goods ?? this.goods,
     );
   }
 
@@ -42,6 +49,7 @@ class Location {
       'location': location,
       'description': description,
       'type': type.toMap(),
+      'goods': goods.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -53,6 +61,11 @@ class Location {
       description: map['description'] as String,
       type: LocationType.values.firstWhere((element) =>
           element.toString() == "LocationType.${map["type"]["name"]}"),
+      goods: List<Goods>.from(
+        (map['goods'] as List<int>).map<Goods>(
+          (x) => Goods.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
     );
   }
 
@@ -63,7 +76,7 @@ class Location {
 
   @override
   String toString() {
-    return 'Location(name: $name, owner: $owner, location: $location, description: $description, type: $type)';
+    return 'Location(name: $name, owner: $owner, location: $location, description: $description, type: $type, goods: $goods)';
   }
 
   @override
@@ -74,7 +87,8 @@ class Location {
         other.owner == owner &&
         other.location == location &&
         other.description == description &&
-        other.type == type;
+        other.type == type &&
+        listEquals(other.goods, goods);
   }
 
   @override
@@ -83,6 +97,7 @@ class Location {
         owner.hashCode ^
         location.hashCode ^
         description.hashCode ^
-        type.hashCode;
+        type.hashCode ^
+        goods.hashCode;
   }
 }

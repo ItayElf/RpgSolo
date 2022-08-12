@@ -23,7 +23,7 @@ class GenerateLocation extends StatelessWidget {
     final options = [null, ...LocationType.values];
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Location Generator"),
+        title: const Text("Building Generator"),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -34,7 +34,7 @@ class GenerateLocation extends StatelessWidget {
             ),
             Center(
               child: Text(
-                "Choose a Location Type:",
+                "Choose a Building Type:",
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline5,
               ),

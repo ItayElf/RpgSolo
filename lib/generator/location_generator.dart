@@ -1,9 +1,11 @@
 import 'dart:math';
 
 import 'package:rpgsolo/classes/npcs/npc.dart';
+import 'package:rpgsolo/classes/towns/goods.dart';
 import 'package:rpgsolo/classes/towns/location.dart';
 import 'package:rpgsolo/data/races.dart';
 import 'package:rpgsolo/data/towns/locations_data.dart';
+import 'package:rpgsolo/generator/goods_generator.dart';
 import 'package:rpgsolo/generator/npcs/npc_generator.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
@@ -19,12 +21,14 @@ class LocationGenerator {
         _generateLocationName(type, owner.firstName, rand).toLowerCase();
     String location = _generateLocationLocation(type, rand);
     String description = _generateDescription(type, name, owner, rand);
+    List<Goods> goods = GoodsGenerator.generate(type, rand);
     Location l = Location(
         name: name,
         owner: owner,
         location: location,
         description: description,
-        type: type);
+        type: type,
+        goods: goods);
     l = _fixLocation(l);
     return l;
   }
