@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:rpgsolo/classes/npcs/relative.dart';
 import 'package:rpgsolo/classes/villains/villain.dart';
 import 'package:rpgsolo/classes/villains/villain_action.dart';
+import 'package:rpgsolo/components/relative_paragraph.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
 class VillainView extends StatelessWidget {
@@ -18,8 +20,18 @@ class VillainView extends StatelessWidget {
     return Colors.grey;
   }
 
+  getRelatives() {
+    List<Relative> relatives = [];
+    if (villain.background.mother != null) {
+      relatives.add(villain.background.mother!);
+      relatives.add(villain.background.father!);
+    }
+    return relatives + villain.background.sibilings;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final rels = getRelatives();
     return Scaffold(
       appBar: AppBar(
         title: FittedBox(
@@ -143,6 +155,35 @@ class VillainView extends StatelessWidget {
               height: 8,
             ),
             Text(
+              "Background:",
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6
+                  ?.copyWith(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            SelectableText(
+              "${villain.name.toTitleCase()} ${villain.background.parents}. "
+              "${villain.pronoun.toTitleCase()} was born ${villain.background.birthplace}. "
+              "${villain.firstName.toTitleCase()} was raised ${villain.background.raisedBy}. "
+              "${villain.firstName.toTitleCase()} lived a ${villain.background.lifestyle} life and lived in ${villain.background.home}. "
+              "${villain.background.memory.toTitleCase(true)}. ",
+              style: Theme.of(context).textTheme.bodyText1,
+              textAlign: TextAlign.justify,
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Divider(
+              color: Theme.of(context).primaryColorLight,
+              thickness: 2,
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Text(
               "Relationship:",
               style: Theme.of(context)
                   .textTheme
@@ -155,6 +196,38 @@ class VillainView extends StatelessWidget {
             SelectableText(
               "${villain.name.toTitleCase()} is ${villain.relationshipStatus}. ${villain.pronoun.toTitleCase()} is ${villain.orientation}.",
               style: Theme.of(context).textTheme.bodyText1,
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Divider(
+              color: Theme.of(context).primaryColorLight,
+              thickness: 2,
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Text(
+              "Relatives:",
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6
+                  ?.copyWith(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            ListView.separated(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: rels.length,
+              itemBuilder: (context, i) => RelativeParagraph(
+                relative: rels[i],
+                relatedName: villain.firstName,
+              ),
+              separatorBuilder: (context, index) => const SizedBox(
+                height: 8,
+              ),
             ),
             const SizedBox(
               height: 8,

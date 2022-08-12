@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:rpgsolo/classes/npcs/background.dart';
 import 'package:rpgsolo/classes/npcs/personality.dart';
 import 'package:rpgsolo/classes/npcs/physical.dart';
 import 'package:rpgsolo/classes/villains/villain.dart';
@@ -8,6 +9,7 @@ import 'package:rpgsolo/classes/villains/villain_motives.dart';
 import 'package:rpgsolo/data/npcs/npc_data.dart';
 import 'package:rpgsolo/data/races.dart';
 import 'package:rpgsolo/data/villains/villain_data.dart';
+import 'package:rpgsolo/generator/npcs/background_generator.dart';
 import 'package:rpgsolo/generator/npcs/name_generator.dart';
 import 'package:rpgsolo/generator/villains/villain_action_generator.dart';
 import 'package:rpgsolo/generator/villains/villain_motives_generaotr.dart';
@@ -27,11 +29,12 @@ class VillainGenerator {
     String relationshipStatus = rand.chooseFrom(relationshipStatuses);
     String name = VillainRaceNameGenerator.generate(isMale, race, rand);
     Physical physical = VillainPhysicalGenerator.generate(race, isMale, rand);
-    Personality personality =
-        VillainPersonalityGenerator.generate(race, random);
-    VillainMotives motives = VillainMotivesGenerator.generate(isMale, random);
+    Personality personality = VillainPersonalityGenerator.generate(race, rand);
+    VillainMotives motives = VillainMotivesGenerator.generate(isMale, rand);
     List<VillainAction> actions = List.generate(villainActions[power] ?? 0,
         (index) => VillainActionGenerator.generate(name, isMale, rand));
+    Background background = BackgroundGenerator.generate(
+        race, isMale, name, personality.alignment, rand);
     Villain villain = Villain(
         name: name,
         age: age,
@@ -44,7 +47,8 @@ class VillainGenerator {
         physical: physical,
         personality: personality,
         motives: motives,
-        actions: actions);
+        actions: actions,
+        background: background);
     return villain;
   }
 

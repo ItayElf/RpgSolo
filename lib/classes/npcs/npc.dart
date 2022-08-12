@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:rpgsolo/classes/npcs/background.dart';
 import 'package:rpgsolo/classes/npcs/personality.dart';
 import 'package:rpgsolo/classes/npcs/physical.dart';
 import 'package:rpgsolo/data/races.dart';
@@ -17,6 +18,7 @@ class Npc {
   final String hook;
   final Physical physical;
   final Personality personality;
+  final Background background;
   Npc({
     required this.name,
     required this.age,
@@ -28,6 +30,7 @@ class Npc {
     required this.hook,
     required this.physical,
     required this.personality,
+    required this.background,
   });
 
   String get pronoun => isMale ? "he" : "she";
@@ -45,6 +48,7 @@ class Npc {
     String? hook,
     Physical? physical,
     Personality? personality,
+    Background? background,
   }) {
     return Npc(
       name: name ?? this.name,
@@ -57,6 +61,7 @@ class Npc {
       hook: hook ?? this.hook,
       physical: physical ?? this.physical,
       personality: personality ?? this.personality,
+      background: background ?? this.background,
     );
   }
 
@@ -72,6 +77,7 @@ class Npc {
       'hook': hook,
       'physical': physical.toMap(),
       'personality': personality.toMap(),
+      'background': background.toMap(),
     };
   }
 
@@ -89,6 +95,7 @@ class Npc {
       physical: Physical.fromMap(map['physical'] as Map<String, dynamic>),
       personality:
           Personality.fromMap(map['personality'] as Map<String, dynamic>),
+      background: Background.fromMap(map['background'] as Map<String, dynamic>),
     );
   }
 
@@ -99,7 +106,7 @@ class Npc {
 
   @override
   String toString() {
-    return 'Npc(name: $name, age: $age, isMale: $isMale, race: $race, occupation: $occupation, orientation: $orientation, relationshipStatus: $relationshipStatus, hook: $hook, physical: $physical, personality: $personality)';
+    return 'Npc(name: $name, age: $age, isMale: $isMale, race: $race, occupation: $occupation, orientation: $orientation, relationshipStatus: $relationshipStatus, hook: $hook, physical: $physical, personality: $personality, background: $background)';
   }
 
   @override
@@ -115,7 +122,8 @@ class Npc {
         other.relationshipStatus == relationshipStatus &&
         other.hook == hook &&
         other.physical == physical &&
-        other.personality == personality;
+        other.personality == personality &&
+        other.background == background;
   }
 
   @override
@@ -129,6 +137,7 @@ class Npc {
         relationshipStatus.hashCode ^
         hook.hashCode ^
         physical.hashCode ^
-        personality.hashCode;
+        personality.hashCode ^
+        background.hashCode;
   }
 }

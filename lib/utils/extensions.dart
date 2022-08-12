@@ -40,6 +40,9 @@ extension RaceExtention on Race {
       : name == "elf"
           ? "elves"
           : "${printedName}s";
+
+  VillainRace get asVillainRace =>
+      VillainRace.values.firstWhere((e) => e.toString() == "VillainRace.$name");
 }
 
 extension VillainRaceExtention on VillainRace {

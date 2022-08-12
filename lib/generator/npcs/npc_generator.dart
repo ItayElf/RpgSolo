@@ -1,10 +1,12 @@
 import 'dart:math';
 
+import 'package:rpgsolo/classes/npcs/background.dart';
 import 'package:rpgsolo/classes/npcs/npc.dart';
 import 'package:rpgsolo/classes/npcs/personality.dart';
 import 'package:rpgsolo/classes/npcs/physical.dart';
 import 'package:rpgsolo/data/npcs/npc_data.dart';
 import 'package:rpgsolo/data/races.dart';
+import 'package:rpgsolo/generator/npcs/background_generator.dart';
 import 'package:rpgsolo/generator/npcs/name_generator.dart';
 import 'package:rpgsolo/generator/npcs/personality_generator.dart';
 import 'package:rpgsolo/generator/npcs/physical_generator.dart';
@@ -20,9 +22,11 @@ class NpcGenerator {
     String orientation = _generateOrientation(r, rand);
     String relationshipStatus = rand.chooseFrom(relationshipStatuses);
     String hook = rand.chooseFrom(hooks);
-    String name = NameGenerator.generate(isMale, r, random);
-    Physical physical = PhysicalGenerator.generate(r, isMale, random);
-    Personality personality = PersonalityGenerator.generate(r, random);
+    String name = NameGenerator.generate(isMale, r, rand);
+    Physical physical = PhysicalGenerator.generate(r, isMale, rand);
+    Personality personality = PersonalityGenerator.generate(r, rand);
+    Background background = BackgroundGenerator.generate(
+        r.asVillainRace, isMale, name, personality.alignment, rand);
     Npc npc = Npc(
         name: name,
         age: age,
@@ -33,7 +37,8 @@ class NpcGenerator {
         relationshipStatus: relationshipStatus,
         hook: hook,
         physical: physical,
-        personality: personality);
+        personality: personality,
+        background: background);
     return npc;
   }
 

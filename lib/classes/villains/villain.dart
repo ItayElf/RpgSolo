@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
+import 'package:rpgsolo/classes/npcs/background.dart';
 import 'package:rpgsolo/classes/npcs/personality.dart';
 import 'package:rpgsolo/classes/npcs/physical.dart';
 import 'package:rpgsolo/classes/villains/villain_action.dart';
@@ -24,6 +25,7 @@ class Villain {
   final Personality personality;
   final VillainMotives motives;
   final List<VillainAction> actions;
+  final Background background;
   Villain({
     required this.name,
     required this.age,
@@ -37,7 +39,12 @@ class Villain {
     required this.personality,
     required this.motives,
     required this.actions,
+    required this.background,
   });
+
+  String get pronoun => isMale ? "he" : "she";
+  String get relPronoun => isMale ? "his" : "her";
+  String get firstName => name.split(" ")[0];
 
   Villain copyWith({
     String? name,
@@ -52,6 +59,7 @@ class Villain {
     Personality? personality,
     VillainMotives? motives,
     List<VillainAction>? actions,
+    Background? background,
   }) {
     return Villain(
       name: name ?? this.name,
@@ -66,12 +74,9 @@ class Villain {
       personality: personality ?? this.personality,
       motives: motives ?? this.motives,
       actions: actions ?? this.actions,
+      background: background ?? this.background,
     );
   }
-
-  String get pronoun => isMale ? "he" : "she";
-  String get relPronoun => isMale ? "his" : "her";
-  String get firstName => name.split(" ")[0];
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -87,6 +92,7 @@ class Villain {
       'personality': personality.toMap(),
       'motives': motives.toMap(),
       'actions': actions.map((x) => x.toMap()).toList(),
+      'background': background.toMap(),
     };
   }
 
@@ -111,6 +117,7 @@ class Villain {
           (x) => VillainAction.fromMap(x as Map<String, dynamic>),
         ),
       ),
+      background: Background.fromMap(map['background'] as Map<String, dynamic>),
     );
   }
 
@@ -121,7 +128,7 @@ class Villain {
 
   @override
   String toString() {
-    return 'Villain(name: $name, age: $age, isMale: $isMale, power: $power, race: $race, occupation: $occupation, orientation: $orientation, relationshipStatus: $relationshipStatus, physical: $physical, personality: $personality, motives: $motives, actions: $actions)';
+    return 'Villain(name: $name, age: $age, isMale: $isMale, power: $power, race: $race, occupation: $occupation, orientation: $orientation, relationshipStatus: $relationshipStatus, physical: $physical, personality: $personality, motives: $motives, actions: $actions, background: $background)';
   }
 
   @override
@@ -139,7 +146,8 @@ class Villain {
         other.physical == physical &&
         other.personality == personality &&
         other.motives == motives &&
-        listEquals(other.actions, actions);
+        listEquals(other.actions, actions) &&
+        other.background == background;
   }
 
   @override
@@ -155,6 +163,7 @@ class Villain {
         physical.hashCode ^
         personality.hashCode ^
         motives.hashCode ^
-        actions.hashCode;
+        actions.hashCode ^
+        background.hashCode;
   }
 }
