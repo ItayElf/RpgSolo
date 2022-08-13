@@ -77,20 +77,20 @@ class Town {
       mainRace: Race.values.firstWhere(
           (element) => element.toString() == "Race.${map["mainRace"]["name"]}"),
       locations: List<Location>.from(
-        (map['locations'] as List<int>).map<Location>(
+        (map['locations']).map<Location>(
           (x) => Location.fromMap(x as Map<String, dynamic>),
         ),
       ),
       description: map['description'] as String,
       occupation: map['occupation'] as String,
       npcs: List<Npc>.from(
-        (map['npcs'] as List<int>).map<Npc>(
+        (map['npcs']).map<Npc>(
           (x) => Npc.fromMap(x as Map<String, dynamic>),
         ),
       ),
       population: map['population'] as int,
       sidequests: List<String>.from(
-        (map['sidequests'] as List<String>),
+        (map['sidequests']),
       ),
     );
   }

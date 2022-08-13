@@ -4,8 +4,9 @@ import 'package:rpgsolo/classes/npcs/relative.dart';
 import 'package:rpgsolo/components/expandable_paragraph.dart';
 import 'package:rpgsolo/components/relative_paragraph.dart';
 import 'package:rpgsolo/utils/extensions.dart';
+import 'package:rpgsolo/utils/items_saver.dart';
 
-class NpcView extends StatelessWidget {
+class NpcView extends StatefulWidget {
   const NpcView({super.key, required this.npc});
 
   final Npc npc;
@@ -20,15 +21,56 @@ class NpcView extends StatelessWidget {
   }
 
   @override
+  State<NpcView> createState() => _NpcViewState();
+}
+
+class _NpcViewState extends State<NpcView> {
+  late List<Npc> npcs;
+  bool isSaved = false;
+
+  @override
+  void initState() {
+    super.initState();
+    ItemSaver.getSavedItems().then((value) {
+      setState(() {
+        npcs = List.from(value["npcs"]!);
+        isSaved = value["npcs"]!.contains(widget.npc);
+      });
+    });
+  }
+
+  onClick() async {
+    if (isSaved) {
+      await ItemSaver.removeNpc(widget.npc);
+    } else {
+      await ItemSaver.saveNpc(widget.npc);
+    }
+    Map<String, List> value = await ItemSaver.getSavedItems();
+    setState(() {
+      npcs = List.from(value["npcs"]!);
+      isSaved = value["npcs"]!.contains(widget.npc);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final rels = getRelatives();
+    final rels = widget.getRelatives();
     return Scaffold(
       appBar: AppBar(
         title: FittedBox(
           fit: BoxFit.fitWidth,
-          child: Text("${npc.name.toTitleCase()} (NPC)"),
+          child: Text("${widget.npc.name.toTitleCase()} (NPC)"),
         ),
         centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: GestureDetector(
+              onTap: onClick,
+              child: Icon(isSaved ? Icons.star : Icons.star_border),
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -43,7 +85,7 @@ class NpcView extends StatelessWidget {
                 child: FittedBox(
                   fit: BoxFit.fitWidth,
                   child: SelectableText(
-                    npc.name.toTitleCase(),
+                    widget.npc.name.toTitleCase(),
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
                         .textTheme
@@ -68,12 +110,12 @@ class NpcView extends StatelessWidget {
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 child: SelectableText(
-                  "${npc.name.toTitleCase()} is a ${npc.age} years old ${npc.isMale ? 'male' : 'female'} ${npc.race.printedName} ${npc.occupation}. "
-                  "${npc.pronoun.toTitleCase()} has a ${npc.physical.hair} and ${npc.physical.eyes}. "
-                  "${npc.pronoun.toTitleCase()} has a ${npc.physical.skin}. "
-                  "${npc.firstName.toTitleCase()} is ${npc.physical.height}cm tall and has a ${npc.physical.build}. "
-                  "${npc.pronoun.toTitleCase()} has a ${npc.physical.face}. "
-                  "${npc.pronoun.toTitleCase()} ${npc.physical.special}${npc.physical.special2 != null ? ' and ${npc.physical.special2}' : ''}.",
+                  "${widget.npc.name.toTitleCase()} is a ${widget.npc.age} years old ${widget.npc.isMale ? 'male' : 'female'} ${widget.npc.race.printedName} ${widget.npc.occupation}. "
+                  "${widget.npc.pronoun.toTitleCase()} has a ${widget.npc.physical.hair} and ${widget.npc.physical.eyes}. "
+                  "${widget.npc.pronoun.toTitleCase()} has a ${widget.npc.physical.skin}. "
+                  "${widget.npc.firstName.toTitleCase()} is ${widget.npc.physical.height}cm tall and has a ${widget.npc.physical.build}. "
+                  "${widget.npc.pronoun.toTitleCase()} has a ${widget.npc.physical.face}. "
+                  "${widget.npc.pronoun.toTitleCase()} ${widget.npc.physical.special}${widget.npc.physical.special2 != null ? ' and ${widget.npc.physical.special2}' : ''}.",
                   style: Theme.of(context).textTheme.bodyText1,
                   textAlign: TextAlign.justify,
                 ),
@@ -97,9 +139,9 @@ class NpcView extends StatelessWidget {
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 child: SelectableText(
-                  "${npc.name.toTitleCase()} ${npc.personality.trait1} ${npc.pronoun.toTitleCase()} ${npc.personality.trait2} "
-                  "${npc.firstName.toTitleCase()} ${npc.personality.quirk1.replaceAll(".", "")} and ${npc.personality.quirk2} "
-                  "${npc.pronoun.toTitleCase()} is ${npc.personality.alignment.toLowerCase()}.",
+                  "${widget.npc.name.toTitleCase()} ${widget.npc.personality.trait1} ${widget.npc.pronoun.toTitleCase()} ${widget.npc.personality.trait2} "
+                  "${widget.npc.firstName.toTitleCase()} ${widget.npc.personality.quirk1.replaceAll(".", "")} and ${widget.npc.personality.quirk2} "
+                  "${widget.npc.pronoun.toTitleCase()} is ${widget.npc.personality.alignment.toLowerCase()}.",
                   style: Theme.of(context).textTheme.bodyText1,
                   textAlign: TextAlign.justify,
                 ),
@@ -123,11 +165,11 @@ class NpcView extends StatelessWidget {
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 child: SelectableText(
-                  "${npc.name.toTitleCase()} ${npc.background.parents}. "
-                  "${npc.pronoun.toTitleCase()} was born ${npc.background.birthplace}. "
-                  "${npc.firstName.toTitleCase()} was raised ${npc.background.raisedBy}. "
-                  "${npc.firstName.toTitleCase()} lived a ${npc.background.lifestyle} life and lived in ${npc.background.home}. "
-                  "${npc.background.memory.toTitleCase(true)}. ",
+                  "${widget.npc.name.toTitleCase()} ${widget.npc.background.parents}. "
+                  "${widget.npc.pronoun.toTitleCase()} was born ${widget.npc.background.birthplace}. "
+                  "${widget.npc.firstName.toTitleCase()} was raised ${widget.npc.background.raisedBy}. "
+                  "${widget.npc.firstName.toTitleCase()} lived a ${widget.npc.background.lifestyle} life and lived in ${widget.npc.background.home}. "
+                  "${widget.npc.background.memory.toTitleCase(true)}. ",
                   style: Theme.of(context).textTheme.bodyText1,
                   textAlign: TextAlign.justify,
                 ),
@@ -151,7 +193,7 @@ class NpcView extends StatelessWidget {
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 child: SelectableText(
-                  "${npc.name.toTitleCase()} is ${npc.relationshipStatus}. ${npc.pronoun.toTitleCase()} is ${npc.orientation}.",
+                  "${widget.npc.name.toTitleCase()} is ${widget.npc.relationshipStatus}. ${widget.npc.pronoun.toTitleCase()} is ${widget.npc.orientation}.",
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
               ),
@@ -179,7 +221,7 @@ class NpcView extends StatelessWidget {
                   itemCount: rels.length,
                   itemBuilder: (context, i) => RelativeParagraph(
                     relative: rels[i],
-                    relatedName: npc.firstName,
+                    relatedName: widget.npc.firstName,
                   ),
                   separatorBuilder: (context, index) => const SizedBox(
                     height: 8,
@@ -205,7 +247,7 @@ class NpcView extends StatelessWidget {
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 child: SelectableText(
-                  "${npc.name.toTitleCase()} ${npc.hook}",
+                  "${widget.npc.name.toTitleCase()} ${widget.npc.hook}",
                   style: Theme.of(context).textTheme.bodyText1,
                   textAlign: TextAlign.justify,
                 ),

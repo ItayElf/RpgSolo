@@ -611,7 +611,7 @@ const intelligentEncounterBenefit = [
   "they have inforamtion that is valuable to the players.",
   "they don't view the players as helpful for them.",
   "they may consider helping the players for the right cost.",
-  "they need help from the player.s",
+  "they need help from the players.",
   "they have met the players before.",
   "they consider the players a threat."
 ];

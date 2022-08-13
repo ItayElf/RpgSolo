@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:rpgsolo/classes/towns/location.dart';
-import 'package:rpgsolo/pages/views/location_view.dart';
+import 'package:rpgsolo/classes/towns/town.dart';
+import 'package:rpgsolo/pages/views/town_view.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
-class LocationTile extends StatelessWidget {
-  const LocationTile({super.key, required this.location, this.onBack});
+class TownTile extends StatelessWidget {
+  const TownTile({super.key, required this.town, this.onBack});
 
-  final Location location;
+  final Town town;
   final Function? onBack;
 
   @override
@@ -14,20 +14,19 @@ class LocationTile extends StatelessWidget {
     return Card(
       child: ListTile(
         onTap: () => Navigator.of(context)
-            .push(SlideRoute(
-                builder: (context) => LocationView(location: location)))
+            .push(SlideRoute(builder: (context) => TownView(town: town)))
             .then((value) => onBack != null ? onBack!() : null),
         leading: Icon(
-          Icons.place,
+          Icons.location_city,
           size: 36,
           color: Theme.of(context).primaryColor,
         ),
         title: Text(
-          location.name.toTitleCase(),
+          town.name.toTitleCase(),
           style: Theme.of(context).textTheme.subtitle1,
         ),
         subtitle: Text(
-          location.type.printedName.toTitleCase(),
+          "${town.townType.name.toTitleCase()} of ${town.mainRace.pluralName}",
           style: Theme.of(context).textTheme.bodyText2,
         ),
       ),

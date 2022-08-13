@@ -5,8 +5,9 @@ import 'package:rpgsolo/components/expandable_paragraph.dart';
 import 'package:rpgsolo/components/tiles/npc_tile.dart';
 import 'package:rpgsolo/data/towns/locations_data.dart';
 import 'package:rpgsolo/utils/extensions.dart';
+import 'package:rpgsolo/utils/items_saver.dart';
 
-class LocationView extends StatelessWidget {
+class LocationView extends StatefulWidget {
   const LocationView({super.key, required this.location});
 
   final Location location;
@@ -20,12 +21,53 @@ class LocationView extends StatelessWidget {
   }
 
   @override
+  State<LocationView> createState() => _LocationViewState();
+}
+
+class _LocationViewState extends State<LocationView> {
+  late List<Location> locations;
+  bool isSaved = false;
+
+  @override
+  void initState() {
+    super.initState();
+    ItemSaver.getSavedItems().then((value) {
+      setState(() {
+        locations = List.from(value["buildings"]!);
+        isSaved = value["buildings"]!.contains(widget.location);
+      });
+    });
+  }
+
+  onClick() async {
+    if (isSaved) {
+      await ItemSaver.removeBuilding(widget.location);
+    } else {
+      await ItemSaver.saveBuilding(widget.location);
+    }
+    Map<String, List> value = await ItemSaver.getSavedItems();
+    setState(() {
+      locations = List.from(value["buildings"]!);
+      isSaved = value["buildings"]!.contains(widget.location);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            "${location.name.toTitleCase()} (${location.type.printedName.toTitleCase()})"),
+            "${widget.location.name.toTitleCase()} (${widget.location.type.printedName.toTitleCase()})"),
         centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: GestureDetector(
+              onTap: onClick,
+              child: Icon(isSaved ? Icons.star : Icons.star_border),
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -40,7 +82,7 @@ class LocationView extends StatelessWidget {
                 child: FittedBox(
                   fit: BoxFit.fitWidth,
                   child: SelectableText(
-                    location.name.toTitleCase(),
+                    widget.location.name.toTitleCase(),
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
                         .textTheme
@@ -65,7 +107,7 @@ class LocationView extends StatelessWidget {
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 child: SelectableText(
-                  getDescription(),
+                  widget.getDescription(),
                   style: Theme.of(context).textTheme.bodyText1,
                   textAlign: TextAlign.justify,
                 ),
@@ -80,10 +122,12 @@ class LocationView extends StatelessWidget {
               const SizedBox(
                 height: 8,
               ),
-              location.goods.isNotEmpty
+              widget.location.goods.isNotEmpty
                   ? ExpandableParagraph(
                       title: Text(
-                        "Goods:",
+                        widget.location.type == LocationType.temple
+                            ? "Services:"
+                            : "Goods:",
                         style: Theme.of(context)
                             .textTheme
                             .headline6
@@ -92,9 +136,9 @@ class LocationView extends StatelessWidget {
                       child: ListView.separated(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: location.goods.length,
+                        itemCount: widget.location.goods.length,
                         itemBuilder: (context, i) =>
-                            GoodsTile(goods: location.goods[i]),
+                            GoodsTile(goods: widget.location.goods[i]),
                         separatorBuilder: (context, index) => const SizedBox(
                           height: 8,
                         ),
@@ -102,9 +146,9 @@ class LocationView extends StatelessWidget {
                     )
                   : Container(),
               SizedBox(
-                height: location.goods.isNotEmpty ? 8 : 0,
+                height: widget.location.goods.isNotEmpty ? 8 : 0,
               ),
-              location.goods.isNotEmpty
+              widget.location.goods.isNotEmpty
                   ? Divider(
                       color: Theme.of(context).primaryColorLight,
                       thickness: 2,
@@ -115,13 +159,15 @@ class LocationView extends StatelessWidget {
               ),
               ExpandableParagraph(
                 title: Text(
-                  location.type == LocationType.monument ? "Artist:" : "Owner:",
+                  widget.location.type == LocationType.monument
+                      ? "Artist:"
+                      : "Owner:",
                   style: Theme.of(context)
                       .textTheme
                       .headline6
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
-                child: NpcTile(npc: location.owner),
+                child: NpcTile(npc: widget.location.owner),
               )
             ],
           ),

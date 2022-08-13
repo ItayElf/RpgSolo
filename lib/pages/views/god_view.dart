@@ -1,20 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:rpgsolo/classes/god.dart';
 import 'package:rpgsolo/utils/extensions.dart';
+import 'package:rpgsolo/utils/items_saver.dart';
 
-class GodView extends StatelessWidget {
+class GodView extends StatefulWidget {
   const GodView({super.key, required this.god});
 
   final God god;
+
+  @override
+  State<GodView> createState() => _GodViewState();
+}
+
+class _GodViewState extends State<GodView> {
+  late List<God> gods;
+  bool isSaved = false;
+
+  @override
+  void initState() {
+    super.initState();
+    ItemSaver.getSavedItems().then((value) {
+      setState(() {
+        gods = List.from(value["gods"]!);
+        isSaved = value["gods"]!.contains(widget.god);
+      });
+    });
+  }
+
+  onClick() async {
+    if (isSaved) {
+      await ItemSaver.removeGod(widget.god);
+    } else {
+      await ItemSaver.saveGod(widget.god);
+    }
+    Map<String, List> value = await ItemSaver.getSavedItems();
+    setState(() {
+      gods = List.from(value["gods"]!);
+      isSaved = value["gods"]!.contains(widget.god);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "${god.name.toTitleCase()} (${god.isMale ? "God" : "Goddess"})",
+          "${widget.god.name.toTitleCase()} (${widget.god.isMale ? "God" : "Goddess"})",
         ),
         centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: GestureDetector(
+              onTap: onClick,
+              child: Icon(isSaved ? Icons.star : Icons.star_border),
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -29,7 +71,7 @@ class GodView extends StatelessWidget {
                 child: FittedBox(
                   fit: BoxFit.fitWidth,
                   child: SelectableText(
-                    god.name.toTitleCase(),
+                    widget.god.name.toTitleCase(),
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
                         .textTheme
@@ -56,12 +98,12 @@ class GodView extends StatelessWidget {
                 height: 16,
               ),
               SelectableText(
-                "${god.name.toTitleCase()} is the ${god.isMale ? "god" : "goddess"} of ${god.trait1}${god.trait2 != null ? " and ${god.trait2}" : ""}. "
-                "${god.isMale ? "He" : "She"} is ${god.alignment}. "
-                "${god.name.toTitleCase()} is depicted as ${god.depiction} and is worshiped by ${god.race?.pluralName ?? "people from different races"}. "
-                "${god.name.toTitleCase()} has ${god.worshippers} worshippers who are predominantly ${god.occupation}s. "
-                "Shrines and temples for ${god.name.toTitleCase()} ${god.shrines}. "
-                "${god.name.toTitleCase()} is often seen as ${god.worshipSee} by people who worship ${god.isMale ? "him" : "her"} and as ${god.otherSee} by those who don't. ",
+                "${widget.god.name.toTitleCase()} is the ${widget.god.isMale ? "god" : "goddess"} of ${widget.god.trait1}${widget.god.trait2 != null ? " and ${widget.god.trait2}" : ""}. "
+                "${widget.god.isMale ? "He" : "She"} is ${widget.god.alignment}. "
+                "${widget.god.name.toTitleCase()} is depicted as ${widget.god.depiction} and is worshiped by ${widget.god.race?.pluralName ?? "people from different races"}. "
+                "${widget.god.name.toTitleCase()} has ${widget.god.worshippers} worshippers who are predominantly ${widget.god.occupation}s. "
+                "Shrines and temples for ${widget.god.name.toTitleCase()} ${widget.god.shrines}. "
+                "${widget.god.name.toTitleCase()} is often seen as ${widget.god.worshipSee} by people who worship ${widget.god.isMale ? "him" : "her"} and as ${widget.god.otherSee} by those who don't. ",
                 style: Theme.of(context).textTheme.bodyText1,
                 textAlign: TextAlign.justify,
               ),

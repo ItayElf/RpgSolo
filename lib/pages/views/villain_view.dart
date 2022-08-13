@@ -5,21 +5,12 @@ import 'package:rpgsolo/classes/villains/villain_action.dart';
 import 'package:rpgsolo/components/expandable_paragraph.dart';
 import 'package:rpgsolo/components/relative_paragraph.dart';
 import 'package:rpgsolo/utils/extensions.dart';
+import 'package:rpgsolo/utils/items_saver.dart';
 
-class VillainView extends StatelessWidget {
+class VillainView extends StatefulWidget {
   const VillainView({super.key, required this.villain});
 
   final Villain villain;
-
-  Color getActionColor(int i) {
-    ActionResult action = villain.actions[i].result;
-    if (action == ActionResult.victory) {
-      return Colors.green;
-    } else if (action == ActionResult.defeat) {
-      return Colors.red;
-    }
-    return Colors.grey;
-  }
 
   getRelatives() {
     List<Relative> relatives = [];
@@ -31,15 +22,56 @@ class VillainView extends StatelessWidget {
   }
 
   @override
+  State<VillainView> createState() => _VillainViewState();
+}
+
+class _VillainViewState extends State<VillainView> {
+  late List<Villain> villains;
+  bool isSaved = false;
+
+  @override
+  void initState() {
+    super.initState();
+    ItemSaver.getSavedItems().then((value) {
+      setState(() {
+        villains = List.from(value["villains"]!);
+        isSaved = value["villains"]!.contains(widget.villain);
+      });
+    });
+  }
+
+  onClick() async {
+    if (isSaved) {
+      await ItemSaver.removeVillain(widget.villain);
+    } else {
+      await ItemSaver.saveVillain(widget.villain);
+    }
+    Map<String, List> value = await ItemSaver.getSavedItems();
+    setState(() {
+      villains = List.from(value["villains"]!);
+      isSaved = value["villains"]!.contains(widget.villain);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final rels = getRelatives();
+    final rels = widget.getRelatives();
     return Scaffold(
       appBar: AppBar(
         title: FittedBox(
           fit: BoxFit.fitWidth,
-          child: Text("${villain.name.toTitleCase()} (Villain)"),
+          child: Text("${widget.villain.name.toTitleCase()} (Villain)"),
         ),
         centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: GestureDetector(
+              onTap: onClick,
+              child: Icon(isSaved ? Icons.star : Icons.star_border),
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
           child: Padding(
@@ -54,7 +86,7 @@ class VillainView extends StatelessWidget {
               child: FittedBox(
                 fit: BoxFit.fitWidth,
                 child: SelectableText(
-                  villain.name.toTitleCase(),
+                  widget.villain.name.toTitleCase(),
                   textAlign: TextAlign.center,
                   style: Theme.of(context)
                       .textTheme
@@ -79,13 +111,13 @@ class VillainView extends StatelessWidget {
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
               child: SelectableText(
-                "${villain.name.toTitleCase()} is a ${villain.age} years old ${villain.isMale ? 'male' : 'female'} ${villain.race.printedName} ${villain.occupation}. "
-                "${villain.pronoun.toTitleCase()} is ${villain.power.printedName}. "
-                "${villain.pronoun.toTitleCase()} has a ${villain.physical.hair} and ${villain.physical.eyes}. "
-                "${villain.pronoun.toTitleCase()} has a ${villain.physical.skin}. "
-                "${villain.firstName.toTitleCase()} is ${villain.physical.height}cm tall and has a ${villain.physical.build}. "
-                "${villain.pronoun.toTitleCase()} has a ${villain.physical.face}. "
-                "${villain.pronoun.toTitleCase()} ${villain.physical.special}${villain.physical.special2 != null ? ' and ${villain.physical.special2}' : ''}.",
+                "${widget.villain.name.toTitleCase()} is a ${widget.villain.age} years old ${widget.villain.isMale ? 'male' : 'female'} ${widget.villain.race.printedName} ${widget.villain.occupation}. "
+                "${widget.villain.pronoun.toTitleCase()} is ${widget.villain.power.printedName}. "
+                "${widget.villain.pronoun.toTitleCase()} has a ${widget.villain.physical.hair} and ${widget.villain.physical.eyes}. "
+                "${widget.villain.pronoun.toTitleCase()} has a ${widget.villain.physical.skin}. "
+                "${widget.villain.firstName.toTitleCase()} is ${widget.villain.physical.height}cm tall and has a ${widget.villain.physical.build}. "
+                "${widget.villain.pronoun.toTitleCase()} has a ${widget.villain.physical.face}. "
+                "${widget.villain.pronoun.toTitleCase()} ${widget.villain.physical.special}${widget.villain.physical.special2 != null ? ' and ${widget.villain.physical.special2}' : ''}.",
                 style: Theme.of(context).textTheme.bodyText1,
                 textAlign: TextAlign.justify,
               ),
@@ -109,9 +141,9 @@ class VillainView extends StatelessWidget {
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
               child: SelectableText(
-                "${villain.name.toTitleCase()} ${villain.personality.trait1} ${villain.pronoun.toTitleCase()} ${villain.personality.trait2} "
-                "${villain.firstName.toTitleCase()} ${villain.personality.quirk1.replaceAll(".", "")} and ${villain.personality.quirk2} "
-                "${villain.pronoun.toTitleCase()} is ${villain.personality.alignment.toLowerCase()}.",
+                "${widget.villain.name.toTitleCase()} ${widget.villain.personality.trait1} ${widget.villain.pronoun.toTitleCase()} ${widget.villain.personality.trait2} "
+                "${widget.villain.firstName.toTitleCase()} ${widget.villain.personality.quirk1.replaceAll(".", "")} and ${widget.villain.personality.quirk2} "
+                "${widget.villain.pronoun.toTitleCase()} is ${widget.villain.personality.alignment.toLowerCase()}.",
                 style: Theme.of(context).textTheme.bodyText1,
                 textAlign: TextAlign.justify,
               ),
@@ -135,9 +167,9 @@ class VillainView extends StatelessWidget {
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
               child: SelectableText(
-                "${villain.firstName.toTitleCase()}'s goal is to ${villain.motives.goal}. ${villain.pronoun.toTitleCase()} is motivated by ${villain.motives.motivation}. "
-                "${villain.firstName.toTitleCase()}'s flaw is being ${villain.motives.flaw} and ${villain.relPronoun} weakness is ${villain.motives.weakness}. "
-                "${villain.firstName.toTitleCase()} has ${villain.motives.friends} friends, allies ${villain.motives.allies} and special ties with ${villain.motives.special}.",
+                "${widget.villain.firstName.toTitleCase()}'s goal is to ${widget.villain.motives.goal}. ${widget.villain.pronoun.toTitleCase()} is motivated by ${widget.villain.motives.motivation}. "
+                "${widget.villain.firstName.toTitleCase()}'s flaw is being ${widget.villain.motives.flaw} and ${widget.villain.relPronoun} weakness is ${widget.villain.motives.weakness}. "
+                "${widget.villain.firstName.toTitleCase()} has ${widget.villain.motives.friends} friends, allies ${widget.villain.motives.allies} and special ties with ${widget.villain.motives.special}.",
                 style: Theme.of(context).textTheme.bodyText1,
                 textAlign: TextAlign.justify,
               ),
@@ -161,11 +193,11 @@ class VillainView extends StatelessWidget {
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
               child: SelectableText(
-                "${villain.name.toTitleCase()} ${villain.background.parents}. "
-                "${villain.pronoun.toTitleCase()} was born ${villain.background.birthplace}. "
-                "${villain.firstName.toTitleCase()} was raised ${villain.background.raisedBy}. "
-                "${villain.firstName.toTitleCase()} lived a ${villain.background.lifestyle} life and lived in ${villain.background.home}. "
-                "${villain.background.memory.toTitleCase(true)}. ",
+                "${widget.villain.name.toTitleCase()} ${widget.villain.background.parents}. "
+                "${widget.villain.pronoun.toTitleCase()} was born ${widget.villain.background.birthplace}. "
+                "${widget.villain.firstName.toTitleCase()} was raised ${widget.villain.background.raisedBy}. "
+                "${widget.villain.firstName.toTitleCase()} lived a ${widget.villain.background.lifestyle} life and lived in ${widget.villain.background.home}. "
+                "${widget.villain.background.memory.toTitleCase(true)}. ",
                 style: Theme.of(context).textTheme.bodyText1,
                 textAlign: TextAlign.justify,
               ),
@@ -189,7 +221,7 @@ class VillainView extends StatelessWidget {
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
               child: SelectableText(
-                "${villain.name.toTitleCase()} is ${villain.relationshipStatus}. ${villain.pronoun.toTitleCase()} is ${villain.orientation}.",
+                "${widget.villain.name.toTitleCase()} is ${widget.villain.relationshipStatus}. ${widget.villain.pronoun.toTitleCase()} is ${widget.villain.orientation}.",
                 style: Theme.of(context).textTheme.bodyText1,
               ),
             ),
@@ -217,7 +249,7 @@ class VillainView extends StatelessWidget {
                 itemCount: rels.length,
                 itemBuilder: (context, i) => RelativeParagraph(
                   relative: rels[i],
-                  relatedName: villain.firstName,
+                  relatedName: widget.villain.firstName,
                 ),
                 separatorBuilder: (context, index) => const SizedBox(
                   height: 8,
@@ -245,9 +277,9 @@ class VillainView extends StatelessWidget {
               child: ListView.separated(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: villain.actions.length,
+                itemCount: widget.villain.actions.length,
                 itemBuilder: (context, i) =>
-                    ActionDataTile(action: villain.actions[i]),
+                    ActionDataTile(action: widget.villain.actions[i]),
                 separatorBuilder: (context, i) => const SizedBox(
                   height: 8,
                 ),

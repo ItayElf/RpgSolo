@@ -62,7 +62,7 @@ class Location {
       type: LocationType.values.firstWhere((element) =>
           element.toString() == "LocationType.${map["type"]["name"]}"),
       goods: List<Goods>.from(
-        (map['goods'] as List<int>).map<Goods>(
+        (map['goods']).map<Goods>(
           (x) => Goods.fromMap(x as Map<String, dynamic>),
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rpgsolo/pages/Home.dart';
 import 'package:rpgsolo/pages/ask_the_oracle.dart';
 import 'package:rpgsolo/pages/roll_page.dart';
+import 'package:rpgsolo/pages/saved_items.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
 class SideBar extends StatelessWidget {
@@ -66,7 +67,7 @@ class SideBar extends StatelessWidget {
             pageId: pageId,
             title: "Saved Items",
             icon: Icons.star,
-            moveTo: null,
+            moveTo: const SavedItems(),
             index: 3,
           ),
         ],

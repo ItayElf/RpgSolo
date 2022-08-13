@@ -4,19 +4,61 @@ import 'package:rpgsolo/components/expandable_paragraph.dart';
 import 'package:rpgsolo/components/tiles/location_tile.dart';
 import 'package:rpgsolo/components/tiles/npc_tile.dart';
 import 'package:rpgsolo/utils/extensions.dart';
+import 'package:rpgsolo/utils/items_saver.dart';
 
-class TownView extends StatelessWidget {
+class TownView extends StatefulWidget {
   const TownView({super.key, required this.town});
 
   final Town town;
+
+  @override
+  State<TownView> createState() => _TownViewState();
+}
+
+class _TownViewState extends State<TownView> {
+  late List<Town> towns;
+  bool isSaved = false;
+
+  @override
+  void initState() {
+    super.initState();
+    ItemSaver.getSavedItems().then((value) {
+      setState(() {
+        towns = List.from(value["settlements"]!);
+        isSaved = value["settlements"]!.contains(widget.town);
+      });
+    });
+  }
+
+  onClick() async {
+    if (isSaved) {
+      await ItemSaver.removeSettlement(widget.town);
+    } else {
+      await ItemSaver.saveSettlement(widget.town);
+    }
+    Map<String, List> value = await ItemSaver.getSavedItems();
+    setState(() {
+      towns = List.from(value["settlements"]!);
+      isSaved = value["settlements"]!.contains(widget.town);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            "${town.name.toTitleCase()} (${town.townType.name.toTitleCase()})"),
+            "${widget.town.name.toTitleCase()} (${widget.town.townType.name.toTitleCase()})"),
         centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: GestureDetector(
+              onTap: onClick,
+              child: Icon(isSaved ? Icons.star : Icons.star_border),
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -31,7 +73,7 @@ class TownView extends StatelessWidget {
                 child: FittedBox(
                   fit: BoxFit.fitWidth,
                   child: SelectableText(
-                    town.name.toTitleCase(),
+                    widget.town.name.toTitleCase(),
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
                         .textTheme
@@ -56,7 +98,7 @@ class TownView extends StatelessWidget {
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 child: SelectableText(
-                  town.description,
+                  widget.town.description,
                   style: Theme.of(context).textTheme.bodyText1,
                   textAlign: TextAlign.justify,
                 ),
@@ -82,7 +124,7 @@ class TownView extends StatelessWidget {
                 child: ListView.separated(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: town.sidequests.length,
+                  itemCount: widget.town.sidequests.length,
                   itemBuilder: (context, i) => Row(
                     children: [
                       Text(
@@ -91,7 +133,7 @@ class TownView extends StatelessWidget {
                       ),
                       Flexible(
                         child: SelectableText(
-                          town.sidequests[i],
+                          widget.town.sidequests[i],
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                       )
@@ -123,9 +165,9 @@ class TownView extends StatelessWidget {
                 child: ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: town.locations.length,
+                  itemCount: widget.town.locations.length,
                   itemBuilder: ((context, i) =>
-                      LocationTile(location: town.locations[i])),
+                      LocationTile(location: widget.town.locations[i])),
                 ),
               ),
               const SizedBox(
@@ -149,8 +191,9 @@ class TownView extends StatelessWidget {
                 child: ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: town.npcs.length,
-                  itemBuilder: ((context, i) => NpcTile(npc: town.npcs[i])),
+                  itemCount: widget.town.npcs.length,
+                  itemBuilder: ((context, i) =>
+                      NpcTile(npc: widget.town.npcs[i])),
                 ),
               ),
               const SizedBox(

@@ -76,7 +76,7 @@ class Background {
           : null,
       birthplace: map['birthplace'] as String,
       sibilings: List<Relative>.from(
-        (map['sibilings'] as List<int>).map<Relative>(
+        (map['sibilings'] as List).map<Relative>(
           (x) => Relative.fromMap(x as Map<String, dynamic>),
         ),
       ),

@@ -113,7 +113,7 @@ class Villain {
           Personality.fromMap(map['personality'] as Map<String, dynamic>),
       motives: VillainMotives.fromMap(map['motives'] as Map<String, dynamic>),
       actions: List<VillainAction>.from(
-        (map['actions'] as List<int>).map<VillainAction>(
+        (map['actions']).map<VillainAction>(
           (x) => VillainAction.fromMap(x as Map<String, dynamic>),
         ),
       ),

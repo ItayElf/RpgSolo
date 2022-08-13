@@ -91,7 +91,7 @@ class NatureLocation {
       travelRate: map['travelRate'] as String,
       resource: map['resource'] as String,
       encounters: List<Encounter>.from(
-        (map['encounter'] as List<int>).map<Encounter>(
+        (map['encounter']).map<Encounter>(
           (x) => Encounter.fromMap(x as Map<String, dynamic>),
         ),
       ),
