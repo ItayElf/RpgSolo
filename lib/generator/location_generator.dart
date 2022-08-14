@@ -74,9 +74,9 @@ class LocationGenerator {
     } else if (type == LocationType.tavern) {
       return "${tavernNames1[random.nextInt(tavernNames1.length)]} ${tavernNames2[random.nextInt(tavernNames2.length)]}";
     } else if (type == LocationType.temple) {
-      return "the ${templeNames1[random.nextInt(templeNames1.length)]}${templeNames2[random.nextInt(templeNames2.length)]}";
+      return "the ${templeNames1[random.nextInt(templeNames1.length)]} ${templeNames2[random.nextInt(templeNames2.length)]}";
     } else if (type == LocationType.guildhall) {
-      return "${guildNames1[random.nextInt(guildNames1.length)]}${guildNames2[random.nextInt(guildNames2.length)]}'s Guildhall";
+      return "${guildNames1[random.nextInt(guildNames1.length)]} ${guildNames2[random.nextInt(guildNames2.length)]}'s Guildhall";
     } else if (type == LocationType.generalStore) {
       return "the ${storeNames1[random.nextInt(storeNames1.length)]} ${storeNames2[random.nextInt(storeNames2.length)]}";
     } else if (type == LocationType.armory) {

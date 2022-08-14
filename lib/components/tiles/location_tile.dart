@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rpgsolo/classes/towns/location.dart';
+import 'package:rpgsolo/data/towns/locations_data.dart';
 import 'package:rpgsolo/pages/views/location_view.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
@@ -8,6 +9,21 @@ class LocationTile extends StatelessWidget {
 
   final Location location;
   final Function? onBack;
+
+  getIcon() {
+    return {
+          LocationType.armory: Icons.security,
+          LocationType.generalStore: Icons.storefront,
+          LocationType.guildhall: Icons.home_filled,
+          LocationType.library: Icons.auto_stories,
+          LocationType.smithy: Icons.hardware,
+          LocationType.tavern: Icons.sports_bar,
+          LocationType.tower: Icons.wb_shade,
+          LocationType.temple: Icons.temple_buddhist,
+          LocationType.weaponry: Icons.store_mall_directory,
+        }[location.type] ??
+        Icons.place;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +34,7 @@ class LocationTile extends StatelessWidget {
                 builder: (context) => LocationView(location: location)))
             .then((value) => onBack != null ? onBack!() : null),
         leading: Icon(
-          Icons.place,
+          getIcon(),
           size: 36,
           color: Theme.of(context).primaryColor,
         ),

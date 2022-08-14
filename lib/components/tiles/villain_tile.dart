@@ -20,7 +20,7 @@ class VillainTile extends StatelessWidget {
                 SlideRoute(builder: (context) => VillainView(villain: villain)))
             .then((value) => onBack != null ? onBack!() : null),
         leading: Icon(
-          Icons.person,
+          villain.isMale ? Icons.man : Icons.woman,
           size: 36,
           color: Theme.of(context).primaryColor,
         ),

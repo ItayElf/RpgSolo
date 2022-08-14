@@ -17,7 +17,7 @@ class NpcTile extends StatelessWidget {
             .push(SlideRoute(builder: (context) => NpcView(npc: npc)))
             .then((value) => onBack != null ? onBack!() : null),
         leading: Icon(
-          Icons.person,
+          npc.isMale ? Icons.man : Icons.woman,
           size: 36,
           color: Theme.of(context).primaryColor,
         ),

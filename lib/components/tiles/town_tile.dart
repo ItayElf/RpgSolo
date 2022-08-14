@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rpgsolo/classes/towns/town.dart';
+import 'package:rpgsolo/data/towns/town_data.dart';
 import 'package:rpgsolo/pages/views/town_view.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
@@ -9,6 +10,15 @@ class TownTile extends StatelessWidget {
   final Town town;
   final Function? onBack;
 
+  getIcon() {
+    return {
+          TownType.hamlet: Icons.cottage,
+          TownType.village: Icons.cottage,
+          TownType.town: Icons.maps_home_work,
+        }[town.townType] ??
+        Icons.location_city;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -17,7 +27,7 @@ class TownTile extends StatelessWidget {
             .push(SlideRoute(builder: (context) => TownView(town: town)))
             .then((value) => onBack != null ? onBack!() : null),
         leading: Icon(
-          Icons.location_city,
+          getIcon(),
           size: 36,
           color: Theme.of(context).primaryColor,
         ),

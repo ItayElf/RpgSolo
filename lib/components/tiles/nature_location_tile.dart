@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rpgsolo/classes/nature_location.dart';
+import 'package:rpgsolo/data/nature_location_data.dart';
 import 'package:rpgsolo/pages/views/nature_location_view.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
@@ -9,6 +10,16 @@ class NatureLocationTile extends StatelessWidget {
 
   final NatureLocation natureLocation;
   final Function? onBack;
+
+  getIcon() {
+    return {
+          NatureLocationType.coast: Icons.water,
+          NatureLocationType.sea: Icons.sailing,
+          NatureLocationType.desert: Icons.wb_sunny,
+          NatureLocationType.forest: Icons.forest,
+        }[natureLocation.type] ??
+        Icons.terrain;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +31,7 @@ class NatureLocationTile extends StatelessWidget {
                     NatureLocationView(location: natureLocation)))
             .then((value) => onBack != null ? onBack!() : null),
         leading: Icon(
-          Icons.terrain,
+          getIcon(),
           size: 36,
           color: Theme.of(context).primaryColor,
         ),
