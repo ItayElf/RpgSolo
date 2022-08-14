@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rpgsolo/classes/encounter.dart';
 import 'package:rpgsolo/components/expandable_paragraph.dart';
 import 'package:rpgsolo/components/sidebar.dart';
 import 'package:rpgsolo/components/tiles/encounter_tile.dart';
