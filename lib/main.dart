@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rpgsolo/generator/world_generator.dart';
-import 'package:rpgsolo/pages/home.dart';
+import 'package:rpgsolo/pages/views/world_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +11,6 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    print(WorldGenerator.generate());
     return MaterialApp(
       title: 'RpgSolo',
       theme: ThemeData(
@@ -45,7 +44,7 @@ class MyApp extends StatelessWidget {
         ),
         primarySwatch: Colors.red,
       ),
-      home: const Home(),
+      home: WorldView(world: WorldGenerator.generate()),
     );
   }
 }

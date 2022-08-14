@@ -26,9 +26,9 @@ class WorldGenerator {
     String name = _generateWorldName(rand);
     List<Town> towns = _generateTowns(rand);
     List<NatureLocation> terrain = _generateTerrain(rand);
-    Map<Race, String> oppinions = _generateOppinions(rand);
+    Map<String, String> oppinions = _generateOppinions(rand);
     List<Npc> importantPeople = List.generate(
-        rand.nextInt(2) + 3, (_) => NpcGenerator.generate(null, rand));
+        rand.nextInt(3) + 3, (_) => NpcGenerator.generate(null, rand));
     List<Villain> villains = _generateVillains(rand);
     List<God> gods = _generateGods(rand);
     List<String> loreItems = _generateLore(rand);
@@ -83,7 +83,7 @@ class WorldGenerator {
 
   static List<NatureLocation> _generateTerrain(Random random) {
     List<NatureLocation> terrain = [];
-    int items = random.nextInt(2) + 5;
+    int items = random.nextInt(3) + 5;
     late NatureLocation location;
     for (int _ in List.generate(items, (_) => _)) {
       location = NatureLocationGenerator.generate(null, random);
@@ -99,11 +99,20 @@ class WorldGenerator {
     return terrain;
   }
 
-  static Map<Race, String> _generateOppinions(Random random) {
-    return {
-      for (var e in Race.values)
-        e: random.chooseFrom(generalOppinions + (oppinionObject[e] ?? []))
+  static Map<String, String> _generateOppinions(Random random) {
+    Map<String, String> res = {
+      for (Race e in Race.values)
+        e.pluralName:
+            random.chooseFrom(generalOppinions + (oppinionObject[e] ?? []))
     };
+    for (String k in res.keys) {
+      while (
+          res.keys.where((e) => e != k).map((e) => res[e]).contains(res[k])) {
+        res[k] =
+            random.chooseFrom(generalOppinions + (oppinionObject[e] ?? []));
+      }
+    }
+    return res;
   }
 
   static List<Villain> _generateVillains(Random random) {
@@ -118,8 +127,8 @@ class WorldGenerator {
 
   static List<God> _generateGods(Random random) {
     List<God> gods = [];
-    for (String s1 in ["Lawful", "True", "Chaotic"]) {
-      for (String s2 in ["Good", "Neutral", "Evil"]) {
+    for (String s2 in ["Good", "Neutral", "Evil"]) {
+      for (String s1 in ["Lawful", "True", "Chaotic"]) {
         gods.add(GodGenerator.generate("$s1 $s2", random));
       }
     }

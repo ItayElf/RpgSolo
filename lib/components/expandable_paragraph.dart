@@ -18,6 +18,7 @@ class _ExpandableParagraphState extends State<ExpandableParagraph> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         GestureDetector(
           behavior: HitTestBehavior.translucent,

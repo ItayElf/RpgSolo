@@ -7,6 +7,7 @@ import 'package:rpgsolo/classes/npcs/npc.dart';
 import 'package:rpgsolo/classes/towns/location.dart';
 import 'package:rpgsolo/classes/towns/town.dart';
 import 'package:rpgsolo/classes/villains/villain.dart';
+import 'package:rpgsolo/classes/world.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ItemSaver {
@@ -17,7 +18,8 @@ class ItemSaver {
     "villains": [],
     "encounters": [],
     "landscapes": [],
-    "gods": []
+    "gods": [],
+    "worlds": [],
   };
 
   static final _convertionObject = {
@@ -27,7 +29,8 @@ class ItemSaver {
     "villains": Villain.fromMap,
     "encounters": Encounter.fromMap,
     "landscapes": NatureLocation.fromMap,
-    "gods": God.fromMap
+    "gods": God.fromMap,
+    "worlds": World.fromMap,
   };
 
   static Future<Map<String, List>> getSavedItems() async {
@@ -127,5 +130,13 @@ class ItemSaver {
 
   static Future<bool> removeGod(God god) async {
     return await _removeFrom("gods", god);
+  }
+
+  static Future<void> saveWorld(World world) async {
+    await _saveTo("worlds", world);
+  }
+
+  static Future<bool> removeWorld(World world) async {
+    return await _removeFrom("worlds", world);
   }
 }
