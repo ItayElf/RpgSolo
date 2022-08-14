@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rpgsolo/components/sidebar.dart';
+import 'package:rpgsolo/generator/world_generator.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_encounter.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_god.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_location.dart';
@@ -7,6 +8,7 @@ import 'package:rpgsolo/pages/generate_pages/generate_nature_location.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_npc.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_town.dart';
 import 'package:rpgsolo/pages/generate_pages/generate_villain.dart';
+import 'package:rpgsolo/pages/views/world_view.dart';
 import 'package:rpgsolo/utils/extensions.dart';
 
 class Home extends StatelessWidget {
@@ -53,34 +55,38 @@ class Home extends StatelessWidget {
                 childAspectRatio: 1,
                 crossAxisSpacing: 8,
                 mainAxisSpacing: 8,
-                children: const [
-                  GeneratorButton(
+                children: [
+                  const GeneratorButton(
                     title: "NPC",
                     moveTo: GenerateNpc(),
                   ),
-                  GeneratorButton(
+                  const GeneratorButton(
                     title: "Building",
                     moveTo: GenerateLocation(),
                   ),
-                  GeneratorButton(
+                  const GeneratorButton(
                     title: "Settlement",
                     moveTo: GenerateTown(),
                   ),
-                  GeneratorButton(
+                  const GeneratorButton(
                     title: "Villain",
                     moveTo: GenerateVillain(),
                   ),
-                  GeneratorButton(
+                  const GeneratorButton(
                     title: "Encounter",
                     moveTo: GenerateEncounter(),
                   ),
-                  GeneratorButton(
+                  const GeneratorButton(
                     title: "Landscape",
                     moveTo: GenerateNatureLocation(),
                   ),
-                  GeneratorButton(
+                  const GeneratorButton(
                     title: "God",
                     moveTo: GenerateGod(),
+                  ),
+                  GeneratorButton(
+                    title: "World",
+                    builder: () => WorldView(world: WorldGenerator.generate()),
                   ),
                 ],
               )
@@ -93,16 +99,20 @@ class Home extends StatelessWidget {
 }
 
 class GeneratorButton extends StatelessWidget {
-  const GeneratorButton({super.key, required this.title, required this.moveTo});
+  const GeneratorButton(
+      {super.key, required this.title, this.moveTo, this.builder});
 
   final String title;
-  final Widget moveTo;
+  final Widget? moveTo;
+  final Widget Function()? builder;
 
   @override
   Widget build(BuildContext context) {
+    assert((moveTo != null && builder == null) ||
+        (moveTo == null && builder != null));
     return ElevatedButton(
-      onPressed: () =>
-          Navigator.of(context).push(SlideRoute(builder: (context) => moveTo)),
+      onPressed: () => Navigator.of(context).push(SlideRoute(
+          builder: (context) => moveTo != null ? moveTo! : builder!())),
       child: FittedBox(
         fit: BoxFit.fill,
         child: Text(

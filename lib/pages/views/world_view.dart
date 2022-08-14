@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:rpgsolo/classes/god.dart';
-import 'package:rpgsolo/classes/nature_location.dart';
 import 'package:rpgsolo/classes/world.dart';
 import 'package:rpgsolo/components/expandable_paragraph.dart';
 import 'package:rpgsolo/components/tiles/nature_location_tile.dart';

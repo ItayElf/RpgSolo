@@ -8,6 +8,7 @@ import 'package:rpgsolo/components/tiles/nature_location_tile.dart';
 import 'package:rpgsolo/components/tiles/npc_tile.dart';
 import 'package:rpgsolo/components/tiles/town_tile.dart';
 import 'package:rpgsolo/components/tiles/villain_tile.dart';
+import 'package:rpgsolo/components/tiles/world_tile.dart';
 import 'package:rpgsolo/utils/items_saver.dart';
 
 class SavedItems extends StatefulWidget {
@@ -180,6 +181,15 @@ class _SavedItemsState extends State<SavedItems> {
                         count: data["gods"]!.length,
                         builder: (context, i) => GodTile(
                           god: data["gods"]![i],
+                          onBack: loadSavedData,
+                        ),
+                      ),
+                      SavedParagraph(
+                        isNotEmpty: data["worlds"]!.isNotEmpty,
+                        title: "Worlds:",
+                        count: data["worlds"]!.length,
+                        builder: (context, i) => WorldTile(
+                          world: data["worlds"]![i],
                           onBack: loadSavedData,
                         ),
                       ),
